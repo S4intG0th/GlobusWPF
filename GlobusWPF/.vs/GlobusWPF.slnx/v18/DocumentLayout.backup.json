@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\globuswpf\\globuswpf\\globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -42,8 +42,7 @@
               "RelativeToolTip": "GlobusWPF\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T06:28:04.126Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T06:28:04.126Z"
             }
           ]
         }
