@@ -1,0 +1,21 @@
+# Visual Studio файлы
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.cache
+*.vcxproj.user
+*.vspscc
+*.vssscc
+*.sln.docstates
+
+# Временные файлы
+[Tt]humbs.db
+*.tmp
+
+# Результаты компиляции
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
