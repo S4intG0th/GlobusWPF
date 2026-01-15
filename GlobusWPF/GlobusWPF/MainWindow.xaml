@@ -1,12 +1,104 @@
-﻿<Window x:Class="GlobusWPF.MainWindow"
+﻿<Window x:Class="GlobusTourApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GlobusWPF"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Турагентство 'Глобус'" 
+        Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel>
+        <!-- Меню -->
+        <Menu DockPanel.Dock="Top" Foreground="White" Background="#FF505050">
+            <MenuItem Header="Туры">
+                <MenuItem Header="Обновить" Click="RefreshTours_Click"/>
+            </MenuItem>
+            <MenuItem Header="Заявки" x:Name="menuBookings" 
+                     Click="MenuAplications_Click" Visibility="Collapsed"/>
+            <MenuItem Header="Выход" Click="MenuExit_Click"/>
+        </Menu>
+
+        <!-- Статусная строка -->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Background="#FF505050">
+                <TextBlock x:Name="statusText"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- Основной контент -->
+        <Grid>
+            <Grid.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="#FF59C5C7" Offset="1"/>
+                </RadialGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <TextBlock x:Name="lblTitle" Grid.Row="0" 
+                      Text="Доступные туры" 
+                      FontSize="20" FontWeight="Bold"
+                      Margin="10" HorizontalAlignment="Center"/>
+
+            <!-- Список туров -->
+            <ListView x:Name="lvTours" Grid.Row="1" Margin="10">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Фото" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding PhotoPath}" 
+                                           Width="70" Height="50" 
+                                           Stretch="UniformToFill"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Название" 
+                                      DisplayMemberBinding="{Binding TourName}" 
+                                      Width="200"/>
+                        <GridViewColumn Header="Страна" 
+                                      DisplayMemberBinding="{Binding CountryName}" 
+                                      Width="100"/>
+                        <GridViewColumn Header="Длительность" 
+                                      DisplayMemberBinding="{Binding DurationDays}" 
+                                      Width="80"/>
+                        <GridViewColumn Header="Начало" 
+                                      DisplayMemberBinding="{Binding StartDate, StringFormat=dd.MM.yyyy}" 
+                                      Width="90"/>
+                        <GridViewColumn Header="Стоимость" 
+                                      DisplayMemberBinding="{Binding BasePrice, StringFormat=N0}" 
+                                      Width="100"/>
+                        <GridViewColumn Header="Свободно мест" 
+                                      DisplayMemberBinding="{Binding FreeSeats}" 
+                                      Width="100"/>
+                        <GridViewColumn Header="Автобус" 
+                                      DisplayMemberBinding="{Binding BusTypeName}" 
+                                      Width="100"/>
+                    </GridView>
+                </ListView.View>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Style.Triggers>
+                            <!-- Спецпредложение -->
+                            <DataTrigger Binding="{Binding IsSpecialOffer}" Value="True">
+                                <Setter Property="Background" Value="#FFD700"/>
+                            </DataTrigger>
+                            <!-- Мало мест -->
+                            <DataTrigger Binding="{Binding IsFewSeats}" Value="True">
+                                <Setter Property="Background" Value="#FFB6C1"/>
+                            </DataTrigger>
+                            <!-- Скоро начинается -->
+                            <DataTrigger Binding="{Binding IsStartingSoon}" Value="True">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </DockPanel>
 </Window>

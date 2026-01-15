@@ -85,7 +85,7 @@ namespace GlobusTourApp.Data
         }
 
         // Получение всех заявок (для менеджера)
-        public List<Aplication> GetAllAplicationss()
+        public List<Aplication> GetAllAplications()
         {
             List<Aplication> aplications = new List<Aplication>();
 
@@ -93,10 +93,10 @@ namespace GlobusTourApp.Data
             {
                 string query = @"
                     SELECT b.*, u.FullName, t.TourName
-                    FROM Bookings b
+                    FROM Aplications b
                     JOIN Users u ON b.ClientId = u.UserId
                     JOIN Tours t ON b.TourId = t.TourId
-                    ORDER BY b.BookingDate DESC";
+                    ORDER BY b.AplicationDate DESC";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();

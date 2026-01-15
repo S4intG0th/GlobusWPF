@@ -1,0 +1,74 @@
+﻿<Window x:Class="GlobusTourApp.AplicationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Управление заявками" Height="500" Width="800">
+
+    <DockPanel Margin="10">
+        <!-- Панель поиска и фильтрации -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Text="Поиск:" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtSearch" Height="25" TextChanged="txtSearch_TextChanged"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Статус:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox x:Name="cbStatusFilter" Width="150" SelectionChanged="cbStatusFilter_SelectionChanged">
+                    <ComboBoxItem Content="Все" IsSelected="True"/>
+                    <ComboBoxItem Content="Новые"/>
+                    <ComboBoxItem Content="Подтвержденные"/>
+                    <ComboBoxItem Content="Отмененные"/>
+                    <ComboBoxItem Content="В обработке"/>
+                </ComboBox>
+
+                <Button x:Name="btnNewBooking" Content="Новая заявка" 
+                       Margin="20,0,0,0" Width="100" Click="btnNewAplication_Click"/>
+                <Button x:Name="btnRefresh" Content="Обновить" 
+                       Margin="10,0,0,0" Width="80" Click="btnRefresh_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Список заявок -->
+        <ListView x:Name="lvAplications">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="№" 
+                                  DisplayMemberBinding="{Binding AplicationId}" 
+                                  Width="50"/>
+                    <GridViewColumn Header="Клиент" 
+                                  DisplayMemberBinding="{Binding ClientName}" 
+                                  Width="150"/>
+                    <GridViewColumn Header="Тур" 
+                                  DisplayMemberBinding="{Binding TourName}" 
+                                  Width="200"/>
+                    <GridViewColumn Header="Дата брони" 
+                                  DisplayMemberBinding="{Binding AplicationDate, StringFormat=dd.MM.yyyy}" 
+                                  Width="100"/>
+                    <GridViewColumn Header="Статус" 
+                                  DisplayMemberBinding="{Binding Status}" 
+                                  Width="100"/>
+                    <GridViewColumn Header="Кол-во" 
+                                  DisplayMemberBinding="{Binding PeopleCount}" 
+                                  Width="60"/>
+                    <GridViewColumn Header="Стоимость" 
+                                  DisplayMemberBinding="{Binding TotalPrice, StringFormat=N0}" 
+                                  Width="100"/>
+
+                    <GridViewColumn Header="Действия" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Просмотр" Width="70" Margin="2"
+                                           Tag="{Binding AplicationId}"
+                                           Click="ViewAplication_Click"/>
+                                    <Button Content="Подтвердить" Width="80" Margin="2"
+                                           Tag="{Binding AplicationId}"
+                                           Click="ConfirmAplication_Click"
+                                           Visibility="{Binding CanConfirm}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

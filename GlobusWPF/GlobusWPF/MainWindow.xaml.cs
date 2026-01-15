@@ -1,28 +1,92 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GlobusTourApp.Data;
+using GlobusTourApp.Models;
+using System.Collections.Generic;
 
-namespace GlobusWPF
+namespace GlobusTourApp
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private DatabaseHelper dbHelper;
+        private User currentUser;
+
+        public MainWindow(User user)
         {
             InitializeComponent();
+            dbHelper = new DatabaseHelper();
+            currentUser = user;
+
+            InitializeWindow();
+            LoadTours();
+        }
+
+        private void InitializeWindow()
+        {
+            if (currentUser == null)
+            {
+                // Гость
+                statusText.Text = "Режим: Гость";
+                menuBookings.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                // Менеджер/Администратор
+                statusText.Text = $"Пользователь: {currentUser.FullName} ({currentUser.Role})";
+                menuBookings.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void LoadTours()
+        {
+            try
+            {
+                List<Tour> tours = dbHelper.GetAllTours();
+
+                // Добавляем путь к фото (заглушка, если нет фото)
+                foreach (var tour in tours)
+                {
+                    if (!string.IsNullOrEmpty(tour.PhotoFileName))
+                    {
+                        tour.PhotoFileName = $"Images/{tour.PhotoFileName}";
+                    }
+                    else
+                    {
+                        tour.PhotoFileName = "Images/default_tour.jpg";
+                    }
+                }
+
+                lvTours.ItemsSource = tours;
+                statusText.Text = $"Загружено туров: {tours.Count}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки туров: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void RefreshTours_Click(object sender, RoutedEventArgs e)
+        {
+            LoadTours();
+        }
+
+        private void MenuAplications_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentUser != null &&
+               (currentUser.Role == "Менеджер" || currentUser.Role == "Администратор"))
+            {
+                AplicationsWindow aplicationsWindow = new AplicationsWindow(currentUser);
+                aplicationsWindow.ShowDialog();
+            }
+        }
+
+        private void MenuExit_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }
