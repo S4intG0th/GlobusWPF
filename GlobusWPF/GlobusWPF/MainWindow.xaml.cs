@@ -1,21 +1,19 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using GlobusTourApp.Data;
-using GlobusTourApp.Models;
-using System.Collections.Generic;
+using GlobusWPF.Models;
 
-namespace GlobusTourApp
+namespace GlobusWPF
 {
     public partial class MainWindow : Window
     {
-        private DatabaseHelper dbHelper;
         private User currentUser;
+        private ObservableCollection<Tour> tours;
 
         public MainWindow(User user)
         {
             InitializeComponent();
-            dbHelper = new DatabaseHelper();
             currentUser = user;
 
             InitializeWindow();
@@ -26,45 +24,25 @@ namespace GlobusTourApp
         {
             if (currentUser == null)
             {
-                // Гость
                 statusText.Text = "Режим: Гость";
-                menuBookings.Visibility = Visibility.Collapsed;
+                menuAplications.Visibility = Visibility.Collapsed;
             }
             else
             {
-                // Менеджер/Администратор
                 statusText.Text = $"Пользователь: {currentUser.FullName} ({currentUser.Role})";
-                menuBookings.Visibility = Visibility.Visible;
+                menuAplications.Visibility = Visibility.Visible;
             }
         }
 
         private void LoadTours()
         {
-            try
-            {
-                List<Tour> tours = dbHelper.GetAllTours();
+            tours = new ObservableCollection<Tour>();
 
-                // Добавляем путь к фото (заглушка, если нет фото)
-                foreach (var tour in tours)
-                {
-                    if (!string.IsNullOrEmpty(tour.PhotoFileName))
-                    {
-                        tour.PhotoFileName = $"Images/{tour.PhotoFileName}";
-                    }
-                    else
-                    {
-                        tour.PhotoFileName = "Images/default_tour.jpg";
-                    }
-                }
+            // Тестовые данные
+            tours.Add(new Tour { TourId = 1, TourName = "Италия", CountryName = "Италия", StartDate = DateTime.Now.AddDays(10), BasePrice = 85000, FreeSeats = 12, Capacity = 35 });
+            tours.Add(new Tour { TourId = 2, TourName = "Франция", CountryName = "Франция", StartDate = DateTime.Now.AddDays(3), BasePrice = 92500, FreeSeats = 5, Capacity = 45 });
 
-                lvTours.ItemsSource = tours;
-                statusText.Text = $"Загружено туров: {tours.Count}";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки туров: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            lvTours.ItemsSource = tours;
         }
 
         private void RefreshTours_Click(object sender, RoutedEventArgs e)
@@ -74,8 +52,7 @@ namespace GlobusTourApp
 
         private void MenuAplications_Click(object sender, RoutedEventArgs e)
         {
-            if (currentUser != null &&
-               (currentUser.Role == "Менеджер" || currentUser.Role == "Администратор"))
+            if (currentUser != null && (currentUser.Role == "Менеджер" || currentUser.Role == "Администратор"))
             {
                 AplicationsWindow aplicationsWindow = new AplicationsWindow(currentUser);
                 aplicationsWindow.ShowDialog();

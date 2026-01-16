@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GlobusTourApp.Models
+namespace GlobusWPF.Models
 {
     public class Aplication
     {

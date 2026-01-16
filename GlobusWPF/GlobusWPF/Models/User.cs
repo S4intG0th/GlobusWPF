@@ -1,4 +1,4 @@
-﻿namespace GlobusTourApp.Models
+﻿namespace GlobusWPF.Models
 {
     public class User
     {

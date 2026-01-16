@@ -1,4 +1,4 @@
-﻿<Window x:Class="GlobusTourApp.MainWindow"
+﻿<Window x:Class="GlobusWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Турагентство 'Глобус'" 
@@ -11,7 +11,7 @@
             <MenuItem Header="Туры">
                 <MenuItem Header="Обновить" Click="RefreshTours_Click"/>
             </MenuItem>
-            <MenuItem Header="Заявки" x:Name="menuBookings" 
+            <MenuItem Header="Заявки" x:Name="menuAplications" 
                      Click="MenuAplications_Click" Visibility="Collapsed"/>
             <MenuItem Header="Выход" Click="MenuExit_Click"/>
         </Menu>

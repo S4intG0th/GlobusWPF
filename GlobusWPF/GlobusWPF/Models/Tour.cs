@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GlobusTourApp.Models
+namespace GlobusWPF.Models
 {
     public class Tour
     {
@@ -24,4 +24,4 @@ namespace GlobusTourApp.Models
         public bool IsFewSeats => FreeSeats < Capacity * 0.1;
         public bool IsStartingSoon => (StartDate - DateTime.Now).TotalDays < 7;
     }
-}
+}   

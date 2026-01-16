@@ -1,26 +1,13 @@
-﻿using GlobusTourApp.Data;
-using GlobusTourApp.Models;
-using GlobusWPF;
-using System.Windows;
+﻿using System.Windows;
+using GlobusWPF.Models;
 
-namespace GlobusTourApp
+namespace GlobusWPF
 {
     public partial class LoginWindow : Window
     {
-        private DatabaseHelper dbHelper;
-
         public LoginWindow()
         {
             InitializeComponent();
-            dbHelper = new DatabaseHelper();
-
-            // Обработка необработанных исключений
-            App.Current.DispatcherUnhandledException += (sender, e) =>
-            {
-                MessageBox.Show($"Ошибка: {e.Exception.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
-                e.Handled = true;
-            };
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -34,7 +21,31 @@ namespace GlobusTourApp
                 return;
             }
 
-            User user = dbHelper.Authenticate(login, password);
+            // Тестовые пользователи
+            User user = null;
+
+            if (login == "manager@globus.ru" && password == "9k3l5m")
+            {
+                user = new User
+                {
+                    UserId = 1,
+                    Role = "Менеджер",
+                    FullName = "Сидорова Анна Владимировна",
+                    Login = login,
+                    Password = password
+                };
+            }
+            else if (login == "admin@globus.ru" && password == "7f8d2a")
+            {
+                user = new User
+                {
+                    UserId = 1,
+                    Role = "Администратор",
+                    FullName = "Петров Иван Сергеевич",
+                    Login = login,
+                    Password = password
+                };
+            }
 
             if (user != null)
             {
@@ -57,7 +68,6 @@ namespace GlobusTourApp
 
         private void btnGuest_Click(object sender, RoutedEventArgs e)
         {
-            // Гость - пользователь без прав
             MainWindow mainWindow = new MainWindow(null);
             mainWindow.Show();
             this.Close();

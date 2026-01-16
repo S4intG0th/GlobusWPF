@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GlobusTourApp
+namespace GlobusWPF
 {
     public partial class App : Application
     {

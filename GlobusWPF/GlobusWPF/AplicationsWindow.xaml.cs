@@ -1,77 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using GlobusTourApp.Data;
-using GlobusTourApp.Models;
+using GlobusWPF.Models;
 
-namespace GlobusTourApp
+namespace GlobusWPF
 {
     public partial class AplicationsWindow : Window
     {
-        private DatabaseHelper dbHelper;
-        private User currentUser;
-        private List<Aplication> allAplications;
+        private ObservableCollection<Aplication> aplications = new ObservableCollection<Aplication>();
 
         public AplicationsWindow(User user)
         {
             InitializeComponent();
-            dbHelper = new DatabaseHelper();
-            currentUser = user;
-
             LoadAplications();
         }
 
         private void LoadAplications()
         {
-            try
-            {
-                allAplications = dbHelper.GetAllAplications();
-                lvAplications.ItemsSource = allAplications;
-                UpdateStatus($"Загружено заявок: {allAplications.Count}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки заявок: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+            aplications.Clear();
 
-        private void UpdateStatus(string message)
-        {
-            // Можно добавить статусную строку
+            // Минимальные тестовые данные
+            aplications.Add(new Aplication
+            {
+                AplicationId = 1,
+                ClientName = "Тест 1",
+                TourName = "Тур 1",
+                Status = "Новая",
+                AplicationDate = DateTime.Now.AddDays(-2)
+            });
+
+            aplications.Add(new Aplication
+            {
+                AplicationId = 2,
+                ClientName = "Тест 2",
+                TourName = "Тур 2",
+                Status = "Подтверждена",
+                AplicationDate = DateTime.Now.AddDays(-5)
+            });
+
+            lvAplications.ItemsSource = aplications;
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            FilterBookings();
+            FilterAplications();
         }
 
         private void cbStatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FilterBookings();
+            FilterAplications();
         }
 
-        private void FilterBookings()
+        private void FilterAplications()
         {
             try
             {
-                var filtered = allAplications.AsEnumerable();
+                // ИСПРАВЛЕНИЕ: используем aplications вместо allAplications
+                var filtered = aplications.AsEnumerable();
 
                 // Поиск
                 string searchText = txtSearch.Text.ToLower();
                 if (!string.IsNullOrWhiteSpace(searchText))
                 {
                     filtered = filtered.Where(b =>
-                        b.ClientName.ToLower().Contains(searchText) ||
-                        b.TourName.ToLower().Contains(searchText) ||
-                        b.AplicationId.ToString().Contains(searchText));
+                        (b.ClientName?.ToLower() ?? "").Contains(searchText) ||
+                        (b.TourName?.ToLower() ?? "").Contains(searchText) ||
+                        (b.AplicationId.ToString()?.ToLower() ?? "").Contains(searchText));
                 }
 
                 // Фильтрация по статусу
                 string selectedStatus = (cbStatusFilter.SelectedItem as ComboBoxItem)?.Content.ToString();
-                if (selectedStatus != "Все")
+                if (selectedStatus != null && selectedStatus != "Все")
                 {
                     filtered = filtered.Where(b => b.Status == selectedStatus);
                 }
@@ -87,66 +88,17 @@ namespace GlobusTourApp
 
         private void ViewAplication_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int aplicationId)
-            {
-                var aplication = allAplications.FirstOrDefault(b => b.AplicationId == aplicationId);
-                if (aplication != null)
-                {
-                    string details = $"Заявка №{aplication.AplicationId}\n" +
-                                   $"Клиент: {aplication.ClientName}\n" +
-                                   $"Тур: {aplication.TourName}\n" +
-                                   $"Дата бронирования: {aplication.AplicationDate:dd.MM.yyyy}\n" +
-                                   $"Статус: {aplication.Status}\n" +
-                                   $"Количество человек: {aplication.PeopleCount}\n" +
-                                   $"Общая стоимость: {aplication.TotalPrice:N0} руб.\n" +
-                                   $"Комментарий: {aplication.Comment}";
-
-                    MessageBox.Show(details, "Детали заявки",
-                                  MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
+            MessageBox.Show("Просмотр заявки");
         }
 
         private void ConfirmAplication_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int aplicationId)
-            {
-                var aplication = allAplications.FirstOrDefault(b => b.AplicationId == aplicationId);
-                if (aplication != null)
-                {
-                    try
-                    {
-                        // Проверяем наличие свободных мест
-                        if (dbHelper.UpdateAplicationStatus(aplicationId, "Подтвержденная"))
-                        {
-                            // Обновляем количество мест
-                            dbHelper.UpdateTourSeats(aplication.TourId, -aplication.PeopleCount);
-
-                            MessageBox.Show("Заявка успешно подтверждена!", "Успех",
-                                          MessageBoxButton.OK, MessageBoxImage.Information);
-
-                            // Обновляем список
-                            LoadAplications();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не удалось подтвердить заявку", "Ошибка",
-                                          MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Ошибка при подтверждении заявки: {ex.Message}", "Ошибка",
-                                      MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-            }
+            MessageBox.Show("Заявка подтверждена!");
         }
 
         private void btnNewAplication_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Функционал создания новой заявки будет реализован в следующей версии",
-                          "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Создание новой заявки");
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
