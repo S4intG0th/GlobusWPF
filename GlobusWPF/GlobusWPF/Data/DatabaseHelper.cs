@@ -10,7 +10,7 @@ namespace GlobusWPF.Data
     public class DatabaseHelper
     {
         public static string ConnectionString =>
-    @"Server=(localdb)\MSSQLLocalDB;Database=Globusbd;Integrated Security=True;";
+    @"Server=(localdb)\MSSQLLocalDB;Database=GlobusWPFdb;Integrated Security=True;";
 
         public static bool TestConnection()
         {

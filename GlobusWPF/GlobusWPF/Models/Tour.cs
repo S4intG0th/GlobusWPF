@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace GlobusWPF.Models
 {
@@ -15,8 +16,23 @@ namespace GlobusWPF.Models
         public string BusTypeName { get; set; }
         public int Capacity { get; set; }
         public int FreeSeats { get; set; }
-        public string PhotoFileName { get; set; }
         public decimal? DiscountPrice { get; set; }
+
+        public string PhotoFileName { get; set; }
+
+        // Добавьте это свойство
+        public string PhotoPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(PhotoFileName))
+                    return "/Images/no-image.png"; // путь к заглушке
+
+                // Проверяем, существует ли файл
+                string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", PhotoFileName);
+                return File.Exists(fullPath) ? fullPath : "/Images/no-image.png";
+            }
+        }
 
         // Для подсветки
         public bool IsSpecialOffer => DiscountPrice.HasValue &&

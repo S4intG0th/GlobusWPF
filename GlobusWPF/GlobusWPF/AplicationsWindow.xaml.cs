@@ -1,9 +1,13 @@
-﻿using System;
+﻿using GlobusWPF.Data;
+using GlobusWPF.Models;
+using System;
+using System.IO;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using GlobusWPF.Models;
+using System.Windows.Input;
 
 namespace GlobusWPF
 {
@@ -21,24 +25,44 @@ namespace GlobusWPF
         {
             aplications.Clear();
 
-            // Минимальные тестовые данные
-            aplications.Add(new Aplication
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
             {
-                AplicationId = 1,
-                ClientName = "Тест 1",
-                TourName = "Тур 1",
-                Status = "Новая",
-                AplicationDate = DateTime.Now.AddDays(-2)
-            });
+                conn.Open();
+                string query = @"
+                SELECT 
+                    [Код заявки],
+                    [Код тура],
+                    [Код клиента],
+                    [Дата заявки],
+                    [Статус заявки],
+                    [Количество человек],
+                    [Общая стоимость(руб.)],
+                    Комментарий
+                FROM Aplications
+                ORDER BY [Дата заявки]";
 
-            aplications.Add(new Aplication
-            {
-                AplicationId = 2,
-                ClientName = "Тест 2",
-                TourName = "Тур 2",
-                Status = "Подтверждена",
-                AplicationDate = DateTime.Now.AddDays(-5)
-            });
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var aplication = new Aplication
+                        {
+                            AplicationId = Convert.ToInt32(reader["Код заявки"]),
+                            TourId = Convert.ToInt32(reader["Код тура"]),
+                            ClientId = Convert.ToInt32(reader["Код клиента"]),
+                            AplicationDate = Convert.ToDateTime(reader["Дата заявки"]),
+                            Status = reader["Статус заявки"]?.ToString() ?? "",
+                            PeopleCount = Convert.ToInt32(reader["Количество человек"]),
+                            TotalPrice = Convert.ToInt32(reader["Общая стоимость(руб.)"]),
+                            Comment = reader["Комментарий"]?.ToString() ?? "",
+
+                        };
+
+                        aplications.Add(aplication);
+                    }
+                }
+            }
 
             lvAplications.ItemsSource = aplications;
         }
@@ -57,6 +81,12 @@ namespace GlobusWPF
         {
             try
             {
+                if (lvAplications == null || aplications == null)
+                {
+                    MessageBox.Show("ListView или коллекция не инициализированы", "Ошибка",
+                                  MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 // ИСПРАВЛЕНИЕ: используем aplications вместо allAplications
                 var filtered = aplications.AsEnumerable();
 
