@@ -9,6 +9,9 @@ namespace GlobusWPF.Models
     {
         private int _freeSeats;
 
+        // ДОБАВЛЯЕМ ЭТО ПОЛЕ
+        private decimal? _discountPrice;
+
         public int TourId { get; set; }
         public string TourName { get; set; }
         public int CountryId { get; set; }
@@ -35,14 +38,30 @@ namespace GlobusWPF.Models
         }
 
         public string PhotoFileName { get; set; }
-        public decimal? DiscountPrice { get; set; }
+
+        // ДОБАВЛЯЕМ ЭТО СВОЙСТВО
+        public decimal? DiscountPrice
+        {
+            get => _discountPrice;
+            set
+            {
+                if (_discountPrice != value)
+                {
+                    _discountPrice = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(HasDiscount));
+                    OnPropertyChanged(nameof(DiscountPercent));
+                    OnPropertyChanged(nameof(IsSpecialOffer));
+                    OnPropertyChanged(nameof(BasePriceColor));
+                }
+            }
+        }
 
         // Вычисляемые свойства для привязки в XAML
-        public bool IsSpecialOffer => DiscountPrice.HasValue &&
-                                 DiscountPercent > 15;
+        public bool IsSpecialOffer => HasDiscount && DiscountPercent > 15;
 
         // Мало мест (осталось <10% от вместимости автобуса)
-        public bool IsFewSeats => Capacity > 0 &&
+        public bool IsFewSeats => Capacity > 0 && FreeSeats > 0 &&
                                   (FreeSeats / (decimal)Capacity) < 0.1m;
 
         // Тур скоро начнется (менее 7 дней)
@@ -51,7 +70,7 @@ namespace GlobusWPF.Models
         public decimal DiscountPercent => HasDiscount ?
             ((BasePrice - DiscountPrice.Value) / BasePrice) * 100 : 0;
 
-        public bool HasDiscount => DiscountPrice.HasValue;
+        public bool HasDiscount => DiscountPrice.HasValue && DiscountPrice.Value > 0;
 
         // Свойства для цветов
         public Brush FreeSeatsColor => IsFewSeats ? Brushes.Red : Brushes.Green;

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,63 +15,14 @@ namespace GlobusWPF
         private List<Aplication> allAplications = new List<Aplication>();
         private List<Aplication> filteredAplications = new List<Aplication>();
         private string currentSortBy = "Date";
-        private bool sortAscending = false; // По умолчанию сортируем по убыванию даты
+        private bool sortAscending = false;
 
         public AplicationsWindow(User user)
         {
-
             InitializeComponent();
-            CheckToursTableStructure();
-
-            // Проверяем структуру базы данных
-            string dbInfo = DatabaseHelper.GetDatabaseStructureInfo();
-            MessageBox.Show(dbInfo, "Информация о базе данных",
-                          MessageBoxButton.OK, MessageBoxImage.Information);
-
-            // Инициализация комбобокса сортировки
-            cbSortBy.SelectedIndex = 0;
-
             LoadAplications();
         }
 
-        private void CheckToursTableStructure()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
-                {
-                    conn.Open();
-
-                    string query = @"
-                SELECT COLUMN_NAME, DATA_TYPE
-                FROM INFORMATION_SCHEMA.COLUMNS
-                WHERE TABLE_NAME = 'Tours'
-                ORDER BY ORDINAL_POSITION";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        StringBuilder columnsInfo = new StringBuilder();
-                        columnsInfo.AppendLine("Структура таблицы Tours:");
-
-                        while (reader.Read())
-                        {
-                            string columnName = reader["COLUMN_NAME"].ToString();
-                            string dataType = reader["DATA_TYPE"].ToString();
-                            columnsInfo.AppendLine($"  {columnName} ({dataType})");
-                        }
-
-                        MessageBox.Show(columnsInfo.ToString(), "Информация о таблице Tours",
-                                      MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка проверки таблицы Tours: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
         private void LoadAplications()
         {
             try
@@ -84,7 +34,6 @@ namespace GlobusWPF
                 {
                     conn.Open();
 
-                    // Запрос с правильными названиями столбцов
                     string query = @"
             SELECT 
                 a.[Код заявки] as AplicationId,
@@ -107,17 +56,16 @@ namespace GlobusWPF
                         {
                             var aplication = new Aplication
                             {
-                                AplicationId = ConvertSafe.ToInt32(reader["AplicationId"]),
-                                TourId = ConvertSafe.ToInt32(reader["TourId"]),
-                                ClientId = ConvertSafe.ToInt32(reader["ClientId"]),
-                                AplicationDate = ConvertSafe.ToDateTime(reader["AplicationDate"]),
-                                Status = ConvertSafe.ToString(reader["Status"]),
-                                PeopleCount = ConvertSafe.ToInt32(reader["PeopleCount"]),
-                                TotalPrice = ConvertSafe.ToDecimal(reader["TotalPrice"]),
-                                Comment = ConvertSafe.ToString(reader["Comment"]),
-                                TourName = ConvertSafe.ToString(reader["TourName"]),
-                                // Клиента получаем из таблицы Users (если она существует)
-                                ClientName = GetClientName(ConvertSafe.ToInt32(reader["ClientId"]))
+                                AplicationId = Convert.ToInt32(reader["AplicationId"]),
+                                TourId = Convert.ToInt32(reader["TourId"]),
+                                ClientId = Convert.ToInt32(reader["ClientId"]),
+                                AplicationDate = Convert.ToDateTime(reader["AplicationDate"]),
+                                Status = reader["Status"].ToString(),
+                                PeopleCount = Convert.ToInt32(reader["PeopleCount"]),
+                                TotalPrice = Convert.ToDecimal(reader["TotalPrice"]),
+                                Comment = reader["Comment"].ToString(),
+                                TourName = reader["TourName"].ToString(),
+                                ClientName = $"Клиент #{Convert.ToInt32(reader["ClientId"])}"
                             };
 
                             allAplications.Add(aplication);
@@ -130,161 +78,7 @@ namespace GlobusWPF
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки заявок: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private string GetClientName(int clientId)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
-                {
-                    conn.Open();
-
-                    // Проверим структуру таблицы Users
-                    string checkQuery = @"
-                SELECT COLUMN_NAME
-                FROM INFORMATION_SCHEMA.COLUMNS
-                WHERE TABLE_NAME = 'Users'";
-
-                    List<string> userColumns = new List<string>();
-                    using (SqlCommand cmd = new SqlCommand(checkQuery, conn))
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            userColumns.Add(reader["COLUMN_NAME"].ToString());
-                        }
-                    }
-
-                    // Определяем, какие столбцы использовать для имени
-                    string nameColumn = "";
-                    if (userColumns.Contains("Фамилия") && userColumns.Contains("Имя"))
-                    {
-                        string middleNameColumn = userColumns.Contains("Отчество") ? "ISNULL([Отчество], '')" : "''";
-                        nameColumn = $"[Фамилия] + ' ' + [Имя] + ' ' + {middleNameColumn}";
-                    }
-                    else if (userColumns.Contains("LastName") && userColumns.Contains("FirstName"))
-                    {
-                        nameColumn = "[LastName] + ' ' + [FirstName]";
-                    }
-                    else if (userColumns.Contains("Логин"))
-                    {
-                        nameColumn = "[Логин]";
-                    }
-                    else if (userColumns.Contains("Login"))
-                    {
-                        nameColumn = "[Login]";
-                    }
-
-                    if (!string.IsNullOrEmpty(nameColumn))
-                    {
-                        string query = $@"
-                    SELECT {nameColumn} as FullName
-                    FROM Users
-                    WHERE [Код пользователя] = @ClientId";
-
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@ClientId", clientId);
-                            object result = cmd.ExecuteScalar();
-
-                            if (result != null && result != DBNull.Value)
-                            {
-                                return result.ToString().Trim();
-                            }
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // Игнорируем ошибки, вернем ID
-            }
-
-            return $"Клиент #{clientId}";
-        }
-
-        private string GetTourName(int tourId)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
-                {
-                    conn.Open();
-
-                    // Пробуем разные возможные названия столбцов
-                    string[] possibleNameColumns = {
-                "Название тура", "Название", "TourName", "Name",
-                "Наименование", "Tour", "Тур"
-            };
-
-                    foreach (var columnName in possibleNameColumns)
-                    {
-                        try
-                        {
-                            string query = $@"
-                        SELECT [{columnName}]
-                        FROM Tours 
-                        WHERE [Код тура] = @TourId";
-
-                            using (SqlCommand cmd = new SqlCommand(query, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@TourId", tourId);
-                                object result = cmd.ExecuteScalar();
-
-                                if (result != null && result != DBNull.Value)
-                                {
-                                    return result.ToString();
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-
-                    // Если не нашли название, возвращаем ID
-                    return $"Тур #{tourId}";
-                }
-            }
-            catch
-            {
-                return $"Тур #{tourId}";
-            }
-        }
-
-        // Вспомогательный класс для безопасного преобразования
-        private static class ConvertSafe
-        {
-            public static int ToInt32(object value)
-            {
-                if (value == null || value == DBNull.Value)
-                    return 0;
-                return Convert.ToInt32(value);
-            }
-
-            public static decimal ToDecimal(object value)
-            {
-                if (value == null || value == DBNull.Value)
-                    return 0;
-                return Convert.ToDecimal(value);
-            }
-
-            public static DateTime ToDateTime(object value)
-            {
-                if (value == null || value == DBNull.Value)
-                    return DateTime.Now;
-                return Convert.ToDateTime(value);
-            }
-
-            public static string ToString(object value)
-            {
-                if (value == null || value == DBNull.Value)
-                    return string.Empty;
-                return value.ToString();
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -299,19 +93,17 @@ namespace GlobusWPF
                 {
                     if (a == null) return false;
 
-                    string clientInfo = $"Клиент #{a.ClientId}";
-                    string tourName = (a.TourName ?? string.Empty).ToLower();
-                    string status = (a.Status ?? string.Empty).ToLower();
+                    string clientInfo = a.ClientName ?? $"Клиент #{a.ClientId}";
+                    string tourName = a.TourName ?? string.Empty;
+                    string status = a.Status ?? string.Empty;
 
-                    // Поиск
                     bool matchesSearch = string.IsNullOrWhiteSpace(searchText) ||
                                         clientInfo.ToLower().Contains(searchText) ||
-                                        tourName.Contains(searchText) ||
+                                        tourName.ToLower().Contains(searchText) ||
                                         a.AplicationId.ToString().Contains(searchText);
 
-                    // Фильтр по статусу
                     bool matchesStatus = selectedStatus == "Все" ||
-                                        (a.Status ?? string.Empty).Equals(selectedStatus, StringComparison.OrdinalIgnoreCase);
+                                        status.Equals(selectedStatus, StringComparison.OrdinalIgnoreCase);
 
                     return matchesSearch && matchesStatus;
                 }).ToList();
@@ -321,7 +113,7 @@ namespace GlobusWPF
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка фильтрации: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -369,7 +161,7 @@ namespace GlobusWPF
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка сортировки: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -389,7 +181,6 @@ namespace GlobusWPF
             {
                 string newSortBy = selectedItem.Tag.ToString();
 
-                // Если уже сортируем по этому полю, меняем направление
                 if (currentSortBy == newSortBy)
                 {
                     sortAscending = !sortAscending;
@@ -437,7 +228,7 @@ namespace GlobusWPF
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка открытия формы редактирования: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -446,7 +237,7 @@ namespace GlobusWPF
             if (sender is Button button && button.Tag != null && int.TryParse(button.Tag.ToString(), out int aplicationId))
             {
                 var result = MessageBox.Show("Подтвердить выбранную заявку?", "Подтверждение",
-                                           MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -466,13 +257,13 @@ namespace GlobusWPF
                         }
 
                         MessageBox.Show("Заявка подтверждена успешно!", "Успех",
-                                      MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         LoadAplications();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Ошибка подтверждения: {ex.Message}", "Ошибка",
-                                      MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -483,7 +274,7 @@ namespace GlobusWPF
             if (sender is Button button && button.Tag != null && int.TryParse(button.Tag.ToString(), out int aplicationId))
             {
                 var result = MessageBox.Show("Удалить выбранную заявку?", "Подтверждение удаления",
-                                           MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -502,7 +293,7 @@ namespace GlobusWPF
                                 if (rowsAffected > 0)
                                 {
                                     MessageBox.Show("Заявка удалена успешно!", "Успех",
-                                                  MessageBoxButton.OK, MessageBoxImage.Information);
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
                                     LoadAplications();
                                 }
                             }
@@ -511,7 +302,7 @@ namespace GlobusWPF
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Ошибка удаления: {ex.Message}", "Ошибка",
-                                      MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -530,7 +321,7 @@ namespace GlobusWPF
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка создания новой заявки: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

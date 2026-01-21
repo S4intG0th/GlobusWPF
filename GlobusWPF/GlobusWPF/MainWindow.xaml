@@ -8,9 +8,7 @@
 
     <!-- Добавьте ресурсы окна -->
     <Window.Resources>
-        <!-- Встроенный конвертер из WPF -->
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <!-- Наш кастомный конвертер -->
         <local:BoolToTextDecorationConverter x:Key="BoolToStrikeConverter"/>
     </Window.Resources>
 
@@ -22,6 +20,8 @@
             </MenuItem>
             <MenuItem Header="Заявки" x:Name="menuAplications" 
                      Click="MenuAplications_Click" Visibility="Collapsed"/>
+            <MenuItem Header="Управление турами" x:Name="menuToursManagement" 
+                     Click="MenuToursManagement_Click" Visibility="Collapsed"/>
             <MenuItem Header="Выход" Click="MenuExit_Click"/>
         </Menu>
 

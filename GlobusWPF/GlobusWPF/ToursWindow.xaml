@@ -1,0 +1,115 @@
+﻿<Window x:Class="GlobusWPF.ToursWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:GlobusWPF"
+        Title="Управление турами" Height="600" Width="1000"
+        WindowStartupLocation="CenterOwner">
+
+    <!-- Добавляем ресурсы окна -->
+    <Window.Resources>
+        <!-- Встроенный конвертер из WPF -->
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <!-- Наш кастомный конвертер -->
+        <local:BoolToTextDecorationConverter x:Key="BoolToStrikeConverter"/>
+    </Window.Resources>
+
+    <DockPanel Margin="10">
+        <!-- Панель инструментов -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Button x:Name="btnNewTour" Content="Новый тур" 
+                       Width="100" Margin="0,0,10,0" Click="btnNewTour_Click"/>
+                <Button x:Name="btnEditTour" Content="Редактировать" 
+                       Width="100" Margin="0,0,10,0" Click="btnEditTour_Click"/>
+                <Button x:Name="btnDeleteTour" Content="Удалить" 
+                       Width="100" Margin="0,0,10,0" Click="btnDeleteTour_Click"/>
+                <Button x:Name="btnRefresh" Content="Обновить" 
+                       Width="100" Margin="0,0,10,0" Click="btnRefresh_Click"/>
+                <Separator Width="20" Visibility="Hidden"/>
+                <TextBlock Text="Поиск:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+                <TextBox x:Name="txtSearch" Width="200" TextChanged="txtSearch_TextChanged"/>
+            </StackPanel>
+
+            <!-- Фильтры -->
+            <StackPanel Orientation="Horizontal">
+                <CheckBox x:Name="chkActiveTours" Content="Только активные" 
+                         IsChecked="True" Margin="0,0,10,0" Checked="ApplyFilters" Unchecked="ApplyFilters"/>
+                <CheckBox x:Name="chkWithDiscount" Content="Со скидкой" 
+                         Margin="0,0,10,0" Checked="ApplyFilters" Unchecked="ApplyFilters"/>
+                <CheckBox x:Name="chkFewSeats" Content="Мало мест (&lt;10%)" 
+                         Checked="ApplyFilters" Unchecked="ApplyFilters"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Список туров -->
+        <ListView x:Name="lvTours" SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Код" 
+                                  DisplayMemberBinding="{Binding TourId}" 
+                                  Width="50"/>
+                    <GridViewColumn Header="Название" 
+                                  DisplayMemberBinding="{Binding TourName}" 
+                                  Width="200"/>
+                    <GridViewColumn Header="Страна" 
+                                  DisplayMemberBinding="{Binding CountryName}" 
+                                  Width="100"/>
+                    <GridViewColumn Header="Дата начала" 
+                                  DisplayMemberBinding="{Binding StartDate, StringFormat=dd.MM.yyyy}" 
+                                  Width="100"/>
+                    <GridViewColumn Header="Дней" 
+                                  DisplayMemberBinding="{Binding DurationDays}" 
+                                  Width="60"/>
+                    <GridViewColumn Header="Стоимость" 
+                                  Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding BasePrice, StringFormat=N0}" 
+                                               Foreground="{Binding BasePriceColor}"
+                                               TextDecorations="{Binding HasDiscount, Converter={StaticResource BoolToStrikeConverter}}"/>
+                                    <TextBlock Text="{Binding DiscountPrice, StringFormat=N0}" 
+                                               Foreground="Red" FontWeight="Bold"
+                                               Visibility="{Binding HasDiscount, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Места" 
+                                  Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding FreeSeats}" 
+                                               Foreground="{Binding FreeSeatsColor}" 
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="/"/>
+                                    <TextBlock Text="{Binding Capacity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Автобус" 
+                                  DisplayMemberBinding="{Binding BusTypeName}" 
+                                  Width="120"/>
+                    <GridViewColumn Header="Статус" Width="120">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="●" Foreground="Green" 
+                                               Visibility="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    <TextBlock Text="●" Foreground="Orange" 
+                                               Visibility="{Binding IsStartingSoon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    <TextBlock Text="⚠" Foreground="Red" 
+                                               Visibility="{Binding IsFewSeats, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    <TextBlock Text="★" Foreground="Gold" 
+                                               Visibility="{Binding IsSpecialOffer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

@@ -65,7 +65,12 @@
     <Compile Include="AplicationEditWindow.xaml.cs">
       <DependentUpon>AplicationEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInfo.cs" />
+    <Compile Include="TourEditWindow.xaml.cs">
+      <DependentUpon>TourEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToursWindow.xaml.cs">
+      <DependentUpon>ToursWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AplicationEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,6 +97,14 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TourEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToursWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

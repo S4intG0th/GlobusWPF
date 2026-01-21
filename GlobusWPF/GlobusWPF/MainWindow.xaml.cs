@@ -22,7 +22,6 @@ namespace GlobusWPF
             InitializeComponent();
             CurrentUser = user;
 
-            // Инициализируем коллекции
             allTours = new ObservableCollection<Tour>();
             filteredTours = new ObservableCollection<Tour>();
 
@@ -36,11 +35,19 @@ namespace GlobusWPF
             {
                 statusText.Text = "Режим: Гость";
                 menuAplications.Visibility = Visibility.Collapsed;
+                menuToursManagement.Visibility = Visibility.Collapsed;
             }
             else
             {
                 statusText.Text = $"Пользователь: {CurrentUser.FullName} ({CurrentUser.Role})";
-                menuAplications.Visibility = Visibility.Visible;
+
+                // Показываем меню заявок для менеджеров и администраторов
+                menuAplications.Visibility = (CurrentUser.Role == "Менеджер" || CurrentUser.Role == "Администратор")
+                    ? Visibility.Visible : Visibility.Collapsed;
+
+                // Показываем меню управления турами для менеджеров и администраторов
+                menuToursManagement.Visibility = (CurrentUser.Role == "Менеджер" || CurrentUser.Role == "Администратор")
+                    ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -54,7 +61,6 @@ namespace GlobusWPF
                 {
                     conn.Open();
 
-                    // Исправленный запрос БЕЗ колонки "Цена со скидкой"
                     string query = @"
             SELECT 
                 [Код тура],
@@ -87,22 +93,16 @@ namespace GlobusWPF
                                 Capacity = Convert.ToInt32(reader["Вместимость"]),
                                 FreeSeats = Convert.ToInt32(reader["Свободных мест"]),
                                 PhotoFileName = reader["Имя файла фото"]?.ToString(),
-                                // Устанавливаем DiscountPrice в null, так как колонки нет
                                 DiscountPrice = null
                             };
-
-                            // Для теста - добавим случайные скидки некоторым турам
-                            AddTestDiscount(tour);
 
                             allTours.Add(tour);
                         }
                     }
                 }
 
-                // Применяем фильтры
                 ApplyFilters();
-
-                statusText.Text += $" | Загружено туров: {allTours.Count}";
+                statusText.Text = $"Пользователь: {CurrentUser?.FullName} ({CurrentUser?.Role}) | Загружено туров: {allTours.Count}";
             }
             catch (Exception ex)
             {
@@ -111,42 +111,12 @@ namespace GlobusWPF
             }
         }
 
-        // Метод для добавления тестовых скидок
-        private void AddTestDiscount(Tour tour)
-        {
-            // Для демонстрации: добавляем скидку 20% каждому третьему туру
-            if (tour.TourId % 3 == 0)
-            {
-                tour.DiscountPrice = tour.BasePrice * 0.8m; // 20% скидка
-            }
-            // И 30% скидку каждому пятому туру
-            else if (tour.TourId % 5 == 0)
-            {
-                tour.DiscountPrice = tour.BasePrice * 0.7m; // 30% скидка
-            }
-        }
-
-        public class BoolToTextDecorationConverter : IValueConverter
-        {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                if (value is bool boolValue && boolValue)
-                    return TextDecorations.Strikethrough;
-                return null;
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                throw new NotImplementedException();
-            }
-        }
         private void ApplyFilters()
         {
             filteredTours.Clear();
 
             var filtered = allTours.AsEnumerable();
 
-            // Применяем фильтры из чекбоксов
             if (chkSpecialOffers?.IsChecked == true)
             {
                 filtered = filtered.Where(t => t.IsSpecialOffer);
@@ -218,7 +188,18 @@ namespace GlobusWPF
             if (CurrentUser != null && (CurrentUser.Role == "Менеджер" || CurrentUser.Role == "Администратор"))
             {
                 AplicationsWindow aplicationsWindow = new AplicationsWindow(CurrentUser);
+                aplicationsWindow.Owner = this;
                 aplicationsWindow.ShowDialog();
+            }
+        }
+
+        private void MenuToursManagement_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentUser != null && (CurrentUser.Role == "Менеджер" || CurrentUser.Role == "Администратор"))
+            {
+                ToursWindow toursWindow = new ToursWindow();
+                toursWindow.Owner = this;
+                toursWindow.ShowDialog();
             }
         }
 
@@ -227,6 +208,21 @@ namespace GlobusWPF
             Login loginWindow = new Login();
             loginWindow.Show();
             this.Close();
+        }
+
+        public class BoolToTextDecorationConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                if (value is bool boolValue && boolValue)
+                    return TextDecorations.Strikethrough;
+                return null;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
