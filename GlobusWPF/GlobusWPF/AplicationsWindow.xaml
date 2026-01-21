@@ -19,6 +19,14 @@
                     <ComboBoxItem Content="В обработке"/>
                 </ComboBox>
 
+                <TextBlock Text="Сортировка:" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                <ComboBox x:Name="cbSortBy" Width="120" SelectionChanged="cbSortBy_SelectionChanged">
+                    <ComboBoxItem Content="Дате" Tag="Date" IsSelected="True"/>
+                    <ComboBoxItem Content="Статусу" Tag="Status"/>
+                    <ComboBoxItem Content="Стоимости" Tag="Price"/>
+                    <ComboBoxItem Content="Клиенту" Tag="Client"/>
+                </ComboBox>
+
                 <Button x:Name="btnNewAplication" Content="Новая заявка" 
                        Margin="20,0,0,0" Width="100" Click="btnNewAplication_Click"/>
                 <Button x:Name="btnRefresh" Content="Обновить" 
@@ -27,18 +35,18 @@
         </StackPanel>
 
         <!-- Список заявок -->
-        <ListView x:Name="lvAplications">
+        <ListView x:Name="lvAplications" MouseDoubleClick="lvAplications_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="№" 
                                   DisplayMemberBinding="{Binding AplicationId}" 
                                   Width="50"/>
                     <GridViewColumn Header="Клиент" 
-                                  DisplayMemberBinding="{Binding ClientName}" 
-                                  Width="150"/>
+              DisplayMemberBinding="{Binding ClientId, StringFormat=Клиент #{0}}" 
+              Width="150"/>
                     <GridViewColumn Header="Тур" 
-                                  DisplayMemberBinding="{Binding TourName}" 
-                                  Width="200"/>
+              DisplayMemberBinding="{Binding TourName}" 
+              Width="200"/>
                     <GridViewColumn Header="Дата брони" 
                                   DisplayMemberBinding="{Binding AplicationDate, StringFormat=dd.MM.yyyy}" 
                                   Width="100"/>
@@ -52,7 +60,7 @@
                                   DisplayMemberBinding="{Binding TotalPrice, StringFormat=N0}" 
                                   Width="100"/>
 
-                    <GridViewColumn Header="Действия" Width="150">
+                    <GridViewColumn Header="Действия" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -62,7 +70,11 @@
                                     <Button Content="Подтвердить" Width="80" Margin="2"
                                            Tag="{Binding AplicationId}"
                                            Click="ConfirmAplication_Click"  
-                                           Visibility="{Binding CanConfirm}"/>
+                                           Visibility="{Binding CanConfirm, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    <Button Content="Удалить" Width="70" Margin="2"
+                                           Tag="{Binding AplicationId}"
+                                           Click="DeleteAplication_Click"
+                                           Foreground="Red"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

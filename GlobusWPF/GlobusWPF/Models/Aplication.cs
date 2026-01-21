@@ -14,5 +14,15 @@ namespace GlobusWPF.Models
         public int PeopleCount { get; set; }
         public decimal TotalPrice { get; set; }
         public string Comment { get; set; }
+
+        // Конструктор по умолчанию
+        public Aplication()
+        {
+            ClientName = string.Empty;
+            TourName = string.Empty;
+            Status = string.Empty;
+            Comment = string.Empty;
+            AplicationDate = DateTime.Now;
+        }
     }
 }
