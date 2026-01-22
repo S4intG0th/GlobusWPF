@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\tourswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\\u0443\u043F 02.01\\globuswpf2201_1740\\globuswpf\\globuswpf\\globuswpf\\tourswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\tourswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -19,7 +19,7 @@
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\\u0443\u043F 02.01\\globuswpf2201_1740\\globuswpf\\globuswpf\\globuswpf\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -114,8 +114,7 @@
               "RelativeToolTip": "GlobusWPF\\Models\\AplicationEditViewModel.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAIwFoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T14:07:05.718Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-22T14:07:05.718Z"
             },
             {
               "$type": "Document",
@@ -139,8 +138,7 @@
               "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\ToursWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-21T06:50:28.502Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-21T06:50:28.502Z"
             },
             {
               "$type": "Document",
@@ -152,8 +150,7 @@
               "RelativeToolTip": "GlobusWPF\\AplicationEditWindow.xaml.cs",
               "ViewState": "AgIAAO0AAAAAAAAAAAAuwP8AAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T08:13:31.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T08:13:31.659Z"
             },
             {
               "$type": "Document",
@@ -164,8 +161,7 @@
               "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\AplicationEditWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-20T08:13:09.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T08:13:09.534Z"
             },
             {
               "$type": "Document",
@@ -201,8 +197,7 @@
               "RelativeToolTip": "GlobusWPF\\Data\\DatabaseHelper.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAADwvwwAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T08:30:51.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T08:30:51.662Z"
             },
             {
               "$type": "Document",
