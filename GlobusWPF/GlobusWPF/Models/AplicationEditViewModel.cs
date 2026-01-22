@@ -66,9 +66,9 @@ namespace GlobusWPF.ViewModels
             get
             {
                 if (CurrentAplication == null || SelectedTour == null)
-                    return 0;
+                    return 0; 
 
-                return CurrentAplication.PeopleCount * SelectedTour.Price;
+                return CurrentAplication.PeopleCount * SelectedTour.BasePrice;
             }
         }
 

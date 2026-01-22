@@ -1,97 +1,97 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\",
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\globuswpf\\globuswpf\\globuswpf\\models\\aplicationeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\aplicationeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationeditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationeditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\aplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\aplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\globuswpf\\globuswpf\\globuswpf\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\tourswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\tourswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\toureditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\toureditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\toureditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\toureditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\tourswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\\u0443\u043F 02.01\\globuswpf2201_1740\\globuswpf\\globuswpf\\globuswpf\\tourswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\tourswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationeditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationeditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\aplicationeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\aplicationeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|c:\\users\\user\\desktop\\globuswpf\\globuswpf\\globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\converters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\converters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\aplicationswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\aplicationswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\aplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\aplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\tourswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\tourswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\toureditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\toureditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\toureditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\toureditwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\converters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\converters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\booltotextdecorationconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\booltotextdecorationconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\booltotextdecorationconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\globuswpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\globuswpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{53C5A306-7EE1-444E-AA05-7EB1505093A3}|GlobusWPF\\GlobusWPF.csproj|solutionrelative:globuswpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -106,295 +106,273 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Client.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\Models\\Client.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Client.cs",
-              "RelativeToolTip": "GlobusWPF\\Models\\Client.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "AplicationEditViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\AplicationEditViewModel.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\Models\\AplicationEditViewModel.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\AplicationEditViewModel.cs",
+              "RelativeToolTip": "GlobusWPF\\Models\\AplicationEditViewModel.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAIwFoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T14:12:53.168Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-22T14:07:05.718Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AplicationEditViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\AplicationEditViewModel.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\Models\\AplicationEditViewModel.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\AplicationEditViewModel.cs",
-              "RelativeToolTip": "GlobusWPF\\Models\\AplicationEditViewModel.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAEwEQAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T14:07:05.718Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "TourEditWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\TourEditWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml.cs",
-              "RelativeToolTip": "GlobusWPF\\TourEditWindow.xaml.cs",
-              "ViewState": "AgIAAF4BAAAAAAAAAAAqwIMBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T06:52:41.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "ToursWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\ToursWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml.cs",
               "RelativeToolTip": "GlobusWPF\\ToursWindow.xaml.cs",
-              "ViewState": "AgIAAL8AAAAAAAAAAAAAAOQAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAAALwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-21T06:50:49.762Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "ToursWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\ToursWindow.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\ToursWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\ToursWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-21T06:50:28.502Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-21T06:50:28.502Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "AplicationEditWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\AplicationEditWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml.cs",
               "RelativeToolTip": "GlobusWPF\\AplicationEditWindow.xaml.cs",
-              "ViewState": "AgIAAO8AAAAAAAAAAAAnwP8AAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAuwP8AAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T08:13:31.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T08:13:31.659Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "AplicationEditWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\AplicationEditWindow.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationEditWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\AplicationEditWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-20T08:13:09.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T08:13:09.534Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
               "Title": "BoolToTextDecorationConverter.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\BoolToTextDecorationConverter.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\BoolToTextDecorationConverter.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\BoolToTextDecorationConverter.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\BoolToTextDecorationConverter.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\BoolToTextDecorationConverter.cs",
               "RelativeToolTip": "GlobusWPF\\BoolToTextDecorationConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T06:01:01.676Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T06:01:01.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Tour.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Tour.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\Models\\Tour.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Tour.cs",
+              "RelativeToolTip": "GlobusWPF\\Models\\Tour.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAswBEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-15T08:28:05.615Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DatabaseHelper.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Data\\DatabaseHelper.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\Data\\DatabaseHelper.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Data\\DatabaseHelper.cs",
+              "RelativeToolTip": "GlobusWPF\\Data\\DatabaseHelper.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAADwvwwAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-15T08:30:51.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TourEditWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\TourEditWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml.cs",
+              "RelativeToolTip": "GlobusWPF\\TourEditWindow.xaml.cs",
+              "ViewState": "AgIAAF4BAAAAAAAAAAAqwIMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T06:52:41.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Client.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Client.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\Models\\Client.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Client.cs",
+              "RelativeToolTip": "GlobusWPF\\Models\\Client.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T14:12:53.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Converters.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Converters.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\Converters.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Converters.cs",
+              "RelativeToolTip": "GlobusWPF\\Converters.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T05:52:15.905Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "Converters.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Converters.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\Converters.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Converters.cs",
-              "RelativeToolTip": "GlobusWPF\\Converters.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T05:52:15.905Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml.cs",
               "RelativeToolTip": "GlobusWPF\\MainWindow.xaml.cs",
               "ViewState": "AgIAAMAAAAAAAAAAAADwv8cAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T10:05:49.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T10:05:49.61Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "TourEditWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\TourEditWindow.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\TourEditWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\TourEditWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-21T06:52:24.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-21T06:52:24.351Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 21,
               "Title": "DataSeeder.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\DataSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\DataSeeder.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\DataSeeder.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\DataSeeder.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\DataSeeder.cs",
               "RelativeToolTip": "GlobusWPF\\DataSeeder.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T10:51:00.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T10:51:00.315Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "AplicationsWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\AplicationsWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml.cs",
               "RelativeToolTip": "GlobusWPF\\AplicationsWindow.xaml.cs",
               "ViewState": "AgIAADcAAAAAAAAAAAAYwEYAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T10:23:05.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T10:23:05.738Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "Login.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\Login.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml",
               "RelativeToolTip": "GlobusWPF\\Login.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-16T10:42:38.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T10:42:38.328Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml.cs",
               "RelativeToolTip": "GlobusWPF\\App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T10:14:52.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T10:14:52.146Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "AplicationsWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\AplicationsWindow.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\AplicationsWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\AplicationsWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-15T10:12:07.559Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T10:12:07.559Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\MainWindow.xaml",
               "RelativeToolTip": "GlobusWPF\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-15T09:57:06.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T09:57:06.415Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 22,
               "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml",
               "RelativeDocumentMoniker": "GlobusWPF\\App.xaml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\App.xaml",
               "RelativeToolTip": "GlobusWPF\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-15T09:42:12.384Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T09:42:12.384Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Login.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\Login.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Login.xaml.cs",
               "RelativeToolTip": "GlobusWPF\\Login.xaml.cs",
               "ViewState": "AgIAAHgAAAAAAAAAAAAAAIgAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T09:35:28.187Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T09:35:28.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Aplication.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Aplication.cs",
+              "RelativeDocumentMoniker": "GlobusWPF\\Models\\Aplication.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Aplication.cs",
+              "RelativeToolTip": "GlobusWPF\\Models\\Aplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-15T08:29:29.255Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 18,
-              "Title": "DatabaseHelper.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Data\\DatabaseHelper.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\Data\\DatabaseHelper.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Data\\DatabaseHelper.cs",
-              "RelativeToolTip": "GlobusWPF\\Data\\DatabaseHelper.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAUwB0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T08:30:51.662Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Aplication.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Aplication.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\Models\\Aplication.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Aplication.cs",
-              "RelativeToolTip": "GlobusWPF\\Models\\Aplication.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T08:29:29.255Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\User.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\User.cs",
               "RelativeDocumentMoniker": "GlobusWPF\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\\u0423\u043F 02.01\\GlobusWPF2201_1740\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\User.cs",
               "RelativeToolTip": "GlobusWPF\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T08:28:38.441Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Tour.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Tour.cs",
-              "RelativeDocumentMoniker": "GlobusWPF\\Models\\Tour.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\GlobusWPF\\GlobusWPF\\GlobusWPF\\Models\\Tour.cs",
-              "RelativeToolTip": "GlobusWPF\\Models\\Tour.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAuwEgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T08:28:05.615Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T08:28:38.441Z"
             }
           ]
         }

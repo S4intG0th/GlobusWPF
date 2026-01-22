@@ -10,7 +10,7 @@ namespace GlobusWPF
     {
         // Исправляем: одна простая строка подключения
         public static string ConnectionString =>
-            @"Server=(localdb)\MSSQLLocalDB;Database=GlobusWPFdb;Integrated Security=True;";
+            @"Server=(localdb)\MSSQLLocalDB;Database=GlobusBD;Integrated Security=True;";
 
         public static bool TestConnection()
         {

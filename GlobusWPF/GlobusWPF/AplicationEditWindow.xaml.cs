@@ -252,8 +252,8 @@ namespace GlobusWPF
                     return;
                 }
 
-                // Проверяем статус
-                if (cbStatus.SelectedItem is not ComboBoxItem selectedStatusItem)
+                //Проверяем статус
+                if (!(cbStatus.SelectedItem is ComboBoxItem selectedStatusItem))
                 {
                     MessageBox.Show("Выберите статус заявки!", "Ошибка",
                         MessageBoxButton.OK, MessageBoxImage.Warning);

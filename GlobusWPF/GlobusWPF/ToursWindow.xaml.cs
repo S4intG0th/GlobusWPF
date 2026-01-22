@@ -181,7 +181,7 @@ namespace GlobusWPF
                         {
                             conn.Open();
 
-                            string checkQuery = "SELECT COUNT(*) FROM Aplic WHERE [Код тура] = @TourId";
+                            string checkQuery = "SELECT COUNT(*) FROM Aplications WHERE [Код тура] = @TourId";
                             using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
                             {
                                 checkCmd.Parameters.AddWithValue("@TourId", selectedTour.TourId);
