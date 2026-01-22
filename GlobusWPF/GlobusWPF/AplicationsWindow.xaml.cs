@@ -2,6 +2,7 @@
 using GlobusWPF.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
@@ -16,10 +17,12 @@ namespace GlobusWPF
         private List<Aplication> filteredAplications = new List<Aplication>();
         private string currentSortBy = "Date";
         private bool sortAscending = false;
+        private bool isInitialized = false;
 
         public AplicationsWindow(User user)
         {
             InitializeComponent();
+            isInitialized = true;
             LoadAplications();
         }
 
@@ -34,20 +37,21 @@ namespace GlobusWPF
                 {
                     conn.Open();
 
+                    // Прямой запрос к таблице Aplications с JOIN на Tours
                     string query = @"
-            SELECT 
-                a.[Код заявки] as AplicationId,
-                a.[Код тура] as TourId,
-                a.[Код клиента] as ClientId,
-                a.[Дата заявки] as AplicationDate,
-                a.[Статус заявки] as Status,
-                a.[Количество человек] as PeopleCount,
-                a.[Общая стоимость(руб.)] as TotalPrice,
-                ISNULL(a.Комментарий, '') as Comment,
-                t.[Наименование тура] as TourName
-            FROM Aplications a
-            LEFT JOIN Tours t ON a.[Код тура] = t.[Код тура]
-            ORDER BY a.[Дата заявки] DESC";
+                SELECT 
+                    a.[Код заявки] as AplicationId,
+                    a.[Код тура] as TourId,
+                    a.[Код клиента] as ClientId,
+                    a.[Дата заявки] as AplicationDate,
+                    a.[Статус заявки] as Status,
+                    a.[Количество человек] as PeopleCount,
+                    a.[Общая стоимость (руб.)] as TotalPrice,
+                    ISNULL(a.Комментарий, '') as Comment,
+                    t.[Наименование тура] as TourName
+                FROM Aplications a
+                LEFT JOIN Tours t ON a.[Код тура] = t.[Код тура]
+                ORDER BY a.[Дата заявки] DESC"; // Сортировка по дате заявки
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -56,16 +60,24 @@ namespace GlobusWPF
                         {
                             var aplication = new Aplication
                             {
-                                AplicationId = Convert.ToInt32(reader["AplicationId"]),
-                                TourId = Convert.ToInt32(reader["TourId"]),
-                                ClientId = Convert.ToInt32(reader["ClientId"]),
-                                AplicationDate = Convert.ToDateTime(reader["AplicationDate"]),
-                                Status = reader["Status"].ToString(),
-                                PeopleCount = Convert.ToInt32(reader["PeopleCount"]),
-                                TotalPrice = Convert.ToDecimal(reader["TotalPrice"]),
-                                Comment = reader["Comment"].ToString(),
-                                TourName = reader["TourName"].ToString(),
-                                ClientName = $"Клиент #{Convert.ToInt32(reader["ClientId"])}"
+                                AplicationId = reader["AplicationId"] != DBNull.Value ?
+                                              Convert.ToInt32(reader["AplicationId"]) : 0,
+                                TourId = reader["TourId"] != DBNull.Value ?
+                                        Convert.ToInt32(reader["TourId"]) : 0,
+                                ClientId = reader["ClientId"] != DBNull.Value ?
+                                          Convert.ToInt32(reader["ClientId"]) : 0,
+                                AplicationDate = reader["AplicationDate"] != DBNull.Value ?
+                                               Convert.ToDateTime(reader["AplicationDate"]) : DateTime.Now,
+                                Status = reader["Status"] != DBNull.Value ?
+                                        reader["Status"].ToString() : "Новые",
+                                PeopleCount = reader["PeopleCount"] != DBNull.Value ?
+                                             Convert.ToInt32(reader["PeopleCount"]) : 1,
+                                TotalPrice = reader["TotalPrice"] != DBNull.Value ?
+                                            Convert.ToInt32(reader["TotalPrice"]) : 0,
+                                Comment = reader["Comment"] != DBNull.Value ?
+                                         reader["Comment"].ToString() : "",
+                                TourName = reader["TourName"] != DBNull.Value ?
+                                          reader["TourName"].ToString() : ""
                             };
 
                             allAplications.Add(aplication);
@@ -86,8 +98,20 @@ namespace GlobusWPF
         {
             try
             {
-                string searchText = txtSearch?.Text?.ToLower() ?? string.Empty;
-                string selectedStatus = (cbStatusFilter?.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Все";
+                // Проверяем, что элементы управления существуют
+                if (txtSearch == null || cbStatusFilter == null || lvAplications == null)
+                {
+                    return;
+                }
+
+                string searchText = txtSearch.Text?.ToLower() ?? string.Empty;
+
+                // Безопасное получение выбранного статуса
+                string selectedStatus = "Все";
+                if (cbStatusFilter.SelectedItem is ComboBoxItem selectedItem)
+                {
+                    selectedStatus = selectedItem.Content?.ToString() ?? "Все";
+                }
 
                 filteredAplications = allAplications.Where(a =>
                 {
@@ -103,7 +127,7 @@ namespace GlobusWPF
                                         a.AplicationId.ToString().Contains(searchText);
 
                     bool matchesStatus = selectedStatus == "Все" ||
-                                        status.Equals(selectedStatus, StringComparison.OrdinalIgnoreCase);
+                                        string.Equals(status, selectedStatus, StringComparison.OrdinalIgnoreCase);
 
                     return matchesSearch && matchesStatus;
                 }).ToList();
@@ -112,7 +136,7 @@ namespace GlobusWPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка фильтрации: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка фильтрации: {ex.Message}\n\nStackTrace: {ex.StackTrace}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -121,6 +145,12 @@ namespace GlobusWPF
         {
             try
             {
+                // Проверяем, что ListView существует
+                if (lvAplications == null)
+                {
+                    return;
+                }
+
                 if (filteredAplications == null || filteredAplications.Count == 0)
                 {
                     lvAplications.ItemsSource = new List<Aplication>();
@@ -133,26 +163,26 @@ namespace GlobusWPF
                 {
                     case "Date":
                         sorted = sortAscending
-                            ? filteredAplications.OrderBy(a => a.AplicationDate)
-                            : filteredAplications.OrderByDescending(a => a.AplicationDate);
+                            ? filteredAplications.OrderBy(a => a?.AplicationDate ?? DateTime.MinValue)
+                            : filteredAplications.OrderByDescending(a => a?.AplicationDate ?? DateTime.MaxValue);
                         break;
 
                     case "Status":
                         sorted = sortAscending
-                            ? filteredAplications.OrderBy(a => a.Status ?? string.Empty)
-                            : filteredAplications.OrderByDescending(a => a.Status ?? string.Empty);
+                            ? filteredAplications.OrderBy(a => a?.Status ?? "")
+                            : filteredAplications.OrderByDescending(a => a?.Status ?? "");
                         break;
 
                     case "Price":
                         sorted = sortAscending
-                            ? filteredAplications.OrderBy(a => a.TotalPrice)
-                            : filteredAplications.OrderByDescending(a => a.TotalPrice);
+                            ? filteredAplications.OrderBy(a => a?.TotalPrice ?? 0)
+                            : filteredAplications.OrderByDescending(a => a?.TotalPrice ?? 0);
                         break;
 
                     case "Client":
                         sorted = sortAscending
-                            ? filteredAplications.OrderBy(a => a.ClientName ?? string.Empty)
-                            : filteredAplications.OrderByDescending(a => a.ClientName ?? string.Empty);
+                            ? filteredAplications.OrderBy(a => a?.ClientName ?? "")
+                            : filteredAplications.OrderByDescending(a => a?.ClientName ?? "");
                         break;
                 }
 
@@ -160,23 +190,33 @@ namespace GlobusWPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка сортировки: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка сортировки: {ex.Message}\n\nStackTrace: {ex.StackTrace}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Устанавливаем пустой источник при ошибке
+                if (lvAplications != null)
+                {
+                    lvAplications.ItemsSource = new List<Aplication>();
+                }
             }
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (!isInitialized) return;
             ApplyFiltersAndSort();
         }
 
         private void cbStatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!isInitialized) return;
             ApplyFiltersAndSort();
         }
 
         private void cbSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!isInitialized) return;
+
             if (cbSortBy.SelectedItem is ComboBoxItem selectedItem && selectedItem.Tag != null)
             {
                 string newSortBy = selectedItem.Tag.ToString();
@@ -197,6 +237,8 @@ namespace GlobusWPF
 
         private void lvAplications_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (!isInitialized) return;
+
             if (lvAplications.SelectedItem is Aplication selectedAplication)
             {
                 EditAplication(selectedAplication);
@@ -205,9 +247,11 @@ namespace GlobusWPF
 
         private void ViewAplication_Click(object sender, RoutedEventArgs e)
         {
+            if (!isInitialized) return;
+
             if (sender is Button button && button.Tag != null && int.TryParse(button.Tag.ToString(), out int aplicationId))
             {
-                var aplication = allAplications.FirstOrDefault(a => a.AplicationId == aplicationId);
+                var aplication = allAplications.FirstOrDefault(a => a != null && a.AplicationId == aplicationId);
                 if (aplication != null)
                 {
                     EditAplication(aplication);
@@ -234,6 +278,8 @@ namespace GlobusWPF
 
         private void ConfirmAplication_Click(object sender, RoutedEventArgs e)
         {
+            if (!isInitialized) return;
+
             if (sender is Button button && button.Tag != null && int.TryParse(button.Tag.ToString(), out int aplicationId))
             {
                 var result = MessageBox.Show("Подтвердить выбранную заявку?", "Подтверждение",
@@ -252,13 +298,16 @@ namespace GlobusWPF
                             using (SqlCommand cmd = new SqlCommand(query, conn))
                             {
                                 cmd.Parameters.AddWithValue("@AplicationId", aplicationId);
-                                cmd.ExecuteNonQuery();
+                                int rowsAffected = cmd.ExecuteNonQuery();
+
+                                if (rowsAffected > 0)
+                                {
+                                    MessageBox.Show("Заявка подтверждена успешно!", "Успех",
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                                    LoadAplications();
+                                }
                             }
                         }
-
-                        MessageBox.Show("Заявка подтверждена успешно!", "Успех",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
-                        LoadAplications();
                     }
                     catch (Exception ex)
                     {
@@ -271,6 +320,8 @@ namespace GlobusWPF
 
         private void DeleteAplication_Click(object sender, RoutedEventArgs e)
         {
+            if (!isInitialized) return;
+
             if (sender is Button button && button.Tag != null && int.TryParse(button.Tag.ToString(), out int aplicationId))
             {
                 var result = MessageBox.Show("Удалить выбранную заявку?", "Подтверждение удаления",
@@ -310,6 +361,8 @@ namespace GlobusWPF
 
         private void btnNewAplication_Click(object sender, RoutedEventArgs e)
         {
+            if (!isInitialized) return;
+
             try
             {
                 var editWindow = new AplicationEditWindow();
@@ -327,6 +380,7 @@ namespace GlobusWPF
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            if (!isInitialized) return;
             LoadAplications();
         }
     }

@@ -61,18 +61,6 @@
                  PreviewTextInput="txtBasePrice_PreviewTextInput"
                  TextChanged="txtBasePrice_TextChanged"/>
 
-        <!-- Цена со скидкой -->
-        <TextBlock Text="Цена со скидкой (руб.):" Grid.Row="5" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
-            <TextBox x:Name="txtDiscountPrice" Width="100" 
-                     Margin="0,0,10,10" Text=""
-                     PreviewTextInput="txtDiscountPrice_PreviewTextInput"
-                     TextChanged="txtDiscountPrice_TextChanged"/>
-            <TextBlock x:Name="txtDiscountPercent" VerticalAlignment="Center"
-                       Foreground="Red" FontWeight="Bold"/>
-        </StackPanel>
-
         <!-- Тип автобуса -->
         <TextBlock Text="Тип автобуса:" Grid.Row="6" Grid.Column="0" 
                    Margin="0,0,10,10" VerticalAlignment="Center"/>

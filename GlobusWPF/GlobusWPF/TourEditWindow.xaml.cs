@@ -30,12 +30,16 @@ namespace GlobusWPF
             if (tour == null)
             {
                 // Создание нового тура
+                // ВРЕМЕННО ставим 0, так как реальный ID еще не известен
+                // Реальный ID будет получен из БД после сохранения
                 currentTour = new Tour
                 {
+                    TourId = 0, // ВРЕМЕННОЕ значение
+                    TourName = "",
+                    CountryName = "",
                     StartDate = DateTime.Now,
                     DurationDays = 1,
                     BasePrice = 1000,
-                    DiscountPrice = null,
                     BusTypeName = "Автобус",
                     Capacity = 20,
                     FreeSeats = 20,
@@ -62,12 +66,10 @@ namespace GlobusWPF
             txtDuration.Text = currentTour.DurationDays.ToString();
             dpStartDate.SelectedDate = currentTour.StartDate;
             txtBasePrice.Text = currentTour.BasePrice.ToString("F0");
+            txtCapacity.Text = currentTour.Capacity.ToString();
+            txtFreeSeats.Text = currentTour.FreeSeats.ToString();
+            txtPhotoFileName.Text = currentTour.PhotoFileName;
 
-            if (currentTour.DiscountPrice.HasValue)
-            {
-                txtDiscountPrice.Text = currentTour.DiscountPrice.Value.ToString("F0");
-                UpdateDiscountPercent();
-            }
 
             // Устанавливаем тип автобуса
             foreach (ComboBoxItem item in cbBusType.Items)
@@ -78,10 +80,6 @@ namespace GlobusWPF
                     break;
                 }
             }
-
-            txtCapacity.Text = currentTour.Capacity.ToString();
-            txtFreeSeats.Text = currentTour.FreeSeats.ToString();
-            txtPhotoFileName.Text = currentTour.PhotoFileName;
 
             // Загружаем превью фото
             LoadPreviewImage();
@@ -126,29 +124,6 @@ namespace GlobusWPF
             }
         }
 
-        private void UpdateDiscountPercent()
-        {
-            try
-            {
-                if (decimal.TryParse(txtBasePrice.Text, out decimal basePrice) &&
-                    !string.IsNullOrWhiteSpace(txtDiscountPrice.Text) &&
-                    decimal.TryParse(txtDiscountPrice.Text, out decimal discountPrice))
-                {
-                    if (basePrice > 0 && discountPrice > 0 && discountPrice < basePrice)
-                    {
-                        decimal percent = ((basePrice - discountPrice) / basePrice) * 100;
-                        txtDiscountPercent.Text = $"(-{percent:F0}%)";
-                        return;
-                    }
-                }
-                txtDiscountPercent.Text = "";
-            }
-            catch
-            {
-                txtDiscountPercent.Text = "";
-            }
-        }
-
         // Методы валидации для каждого поля
         private void txtDuration_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -160,10 +135,6 @@ namespace GlobusWPF
             DecimalValidationTextBox(sender, e);
         }
 
-        private void txtDiscountPrice_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            DecimalValidationTextBox(sender, e);
-        }
 
         private void txtCapacity_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -203,16 +174,6 @@ namespace GlobusWPF
             }
         }
 
-        private void txtBasePrice_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateDiscountPercent();
-        }
-
-        private void txtDiscountPrice_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateDiscountPercent();
-        }
-
         private void btnBrowsePhoto_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
@@ -245,12 +206,16 @@ namespace GlobusWPF
                 }
             }
         }
-
+        private void txtBasePrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Пустой метод - ничего не делаем
+            // Можно оставить комментарий или удалить вовсе
+        }
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Валидация
+                // Валидация (оставляем как есть)
                 if (string.IsNullOrWhiteSpace(txtTourName.Text))
                 {
                     MessageBox.Show("Введите название тура", "Ошибка",
@@ -279,23 +244,11 @@ namespace GlobusWPF
                     return;
                 }
 
-                if (!decimal.TryParse(txtBasePrice.Text, out decimal basePrice) || basePrice <= 0)
+                if (!int.TryParse(txtBasePrice.Text, out int basePrice) || basePrice <= 0)
                 {
                     MessageBox.Show("Введите корректную базовую цену", "Ошибка",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
-                }
-
-                decimal? discountPrice = null;
-                if (!string.IsNullOrWhiteSpace(txtDiscountPrice.Text))
-                {
-                    if (!decimal.TryParse(txtDiscountPrice.Text, out decimal dp) || dp <= 0)
-                    {
-                        MessageBox.Show("Введите корректную цену со скидкой", "Ошибка",
-                            MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-                    discountPrice = dp;
                 }
 
                 if (!int.TryParse(txtCapacity.Text, out int capacity) || capacity < 1)
@@ -319,55 +272,61 @@ namespace GlobusWPF
                     return;
                 }
 
+                // Получаем тип автобуса
+                string busType = (cbBusType.SelectedItem as ComboBoxItem)?.Content?.ToString()
+                                 ?? currentTour.BusTypeName;
+
                 using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
                 {
                     conn.Open();
 
                     if (isNew)
                     {
-                        // Вставка новой записи
+                        // Вручную получаем следующий ID
+                        int nextId = GetNextTourId(conn);
+
+                        // Теперь указываем ID явно в INSERT
                         string query = @"
-                    INSERT INTO Tours 
-                    ([Наименование тура], Страна, [Продолжительность (дней)], 
-                     [Дата начала], [Стоимость (руб.)], [Тип автобуса], 
-                     Вместимость, [Свободных мест], [Имя файла фото], [Цена со скидкой])
-                    VALUES (@TourName, @Country, @Duration, @StartDate, 
-                            @BasePrice, @BusType, @Capacity, @FreeSeats, 
-                            @PhotoFileName, @DiscountPrice);
-                    SELECT SCOPE_IDENTITY();";
+            INSERT INTO Tours 
+            ([Код тура], [Наименование тура], Страна, [Продолжительность (дней)], 
+             [Дата начала], [Стоимость (руб.)], [Тип автобуса], 
+             Вместимость, [Свободных мест], [Имя файла фото])
+            VALUES (@TourId, @TourName, @Country, @Duration, @StartDate, 
+                    @BasePrice, @BusType, @Capacity, @FreeSeats, 
+                    @PhotoFileName)";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
+                            cmd.Parameters.AddWithValue("@TourId", nextId);
                             cmd.Parameters.AddWithValue("@TourName", txtTourName.Text);
                             cmd.Parameters.AddWithValue("@Country", txtCountry.Text);
                             cmd.Parameters.AddWithValue("@Duration", duration);
                             cmd.Parameters.AddWithValue("@StartDate", dpStartDate.SelectedDate);
                             cmd.Parameters.AddWithValue("@BasePrice", basePrice);
-                            cmd.Parameters.AddWithValue("@BusType", (cbBusType.SelectedItem as ComboBoxItem)?.Content.ToString());
+                            cmd.Parameters.AddWithValue("@BusType", busType);
                             cmd.Parameters.AddWithValue("@Capacity", capacity);
                             cmd.Parameters.AddWithValue("@FreeSeats", freeSeats);
                             cmd.Parameters.AddWithValue("@PhotoFileName", txtPhotoFileName.Text ?? "");
-                            cmd.Parameters.AddWithValue("@DiscountPrice", discountPrice.HasValue ? (object)discountPrice.Value : DBNull.Value);
 
-                            currentTour.TourId = Convert.ToInt32(cmd.ExecuteScalar());
+                            cmd.ExecuteNonQuery();
+                            currentTour.TourId = nextId;
                         }
                     }
                     else
                     {
                         // Обновление существующей записи
                         string query = @"
-                    UPDATE Tours SET
-                    [Наименование тура] = @TourName,
-                    Страна = @Country,
-                    [Продолжительность (дней)] = @Duration,
-                    [Дата начала] = @StartDate,
-                    [Стоимость (руб.)] = @BasePrice,
-                    [Тип автобуса] = @BusType,
-                    Вместимость = @Capacity,
-                    [Свободных мест] = @FreeSeats,
-                    [Имя файла фото] = @PhotoFileName,
-                    [Цена со скидкой] = @DiscountPrice
-                    WHERE [Код тура] = @TourId";
+                UPDATE Tours SET
+                [Наименование тура] = @TourName,
+                Страна = @Country,
+                [Продолжительность (дней)] = @Duration,
+                [Дата начала] = @StartDate,
+                [Стоимость (руб.)] = @BasePrice,
+                [Тип автобуса] = @BusType,
+                Вместимость = @Capacity,
+                [Свободных мест] = @FreeSeats,
+                [Имя файла фото] = @PhotoFileName
+                WHERE [Код тура] = @TourId";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
@@ -377,18 +336,29 @@ namespace GlobusWPF
                             cmd.Parameters.AddWithValue("@Duration", duration);
                             cmd.Parameters.AddWithValue("@StartDate", dpStartDate.SelectedDate);
                             cmd.Parameters.AddWithValue("@BasePrice", basePrice);
-                            cmd.Parameters.AddWithValue("@BusType", (cbBusType.SelectedItem as ComboBoxItem)?.Content.ToString());
+                            cmd.Parameters.AddWithValue("@BusType", busType);
                             cmd.Parameters.AddWithValue("@Capacity", capacity);
                             cmd.Parameters.AddWithValue("@FreeSeats", freeSeats);
                             cmd.Parameters.AddWithValue("@PhotoFileName", txtPhotoFileName.Text ?? "");
-                            cmd.Parameters.AddWithValue("@DiscountPrice", discountPrice.HasValue ? (object)discountPrice.Value : DBNull.Value);
 
                             cmd.ExecuteNonQuery();
                         }
                     }
                 }
 
-                MessageBox.Show("Тур успешно сохранен!", "Успех",
+
+                // Обновляем все поля currentTour
+                currentTour.TourName = txtTourName.Text;
+                currentTour.CountryName = txtCountry.Text;
+                currentTour.DurationDays = duration;
+                currentTour.StartDate = dpStartDate.SelectedDate.Value;
+                currentTour.BasePrice = basePrice;
+                currentTour.BusTypeName = busType;
+                currentTour.Capacity = capacity;
+                currentTour.FreeSeats = freeSeats;
+                currentTour.PhotoFileName = txtPhotoFileName.Text;
+
+                MessageBox.Show($"Тур успешно сохранен! ID тура: {currentTour.TourId}", "Успех",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 DialogResult = true;
@@ -398,6 +368,14 @@ namespace GlobusWPF
             {
                 MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private int GetNextTourId(SqlConnection conn)
+        {
+            string query = "SELECT ISNULL(MAX([Код тура]), 0) + 1 FROM Tours";
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
 

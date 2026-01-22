@@ -83,17 +83,16 @@ namespace GlobusWPF
                         {
                             var tour = new Tour
                             {
-                                TourId = Convert.ToInt32(reader["Код тура"]),
-                                TourName = reader["Наименование тура"]?.ToString() ?? "",
-                                CountryName = reader["Страна"]?.ToString() ?? "",
-                                DurationDays = Convert.ToInt32(reader["Продолжительность (дней)"]),
-                                StartDate = Convert.ToDateTime(reader["Дата начала"]),
-                                BasePrice = Convert.ToDecimal(reader["Стоимость (руб.)"]),
-                                BusTypeName = reader["Тип автобуса"]?.ToString() ?? "",
-                                Capacity = Convert.ToInt32(reader["Вместимость"]),
-                                FreeSeats = Convert.ToInt32(reader["Свободных мест"]),
-                                PhotoFileName = reader["Имя файла фото"]?.ToString(),
-                                DiscountPrice = null
+                                TourId = DatabaseHelper.SafeGetInt(reader, "Код тура"),
+                                TourName = DatabaseHelper.SafeGetString(reader, "Наименование тура"),
+                                CountryName = DatabaseHelper.SafeGetString(reader, "Страна"),
+                                DurationDays = DatabaseHelper.SafeGetInt(reader, "Продолжительность (дней)"),
+                                StartDate = DatabaseHelper.SafeGetDateTime(reader, "Дата начала", DateTime.MinValue),
+                                BasePrice = DatabaseHelper.SafeGetInt(reader, "Стоимость (руб.)"),
+                                BusTypeName = DatabaseHelper.SafeGetString(reader, "Тип автобуса"),
+                                Capacity = DatabaseHelper.SafeGetInt(reader, "Вместимость"),
+                                FreeSeats = DatabaseHelper.SafeGetInt(reader, "Свободных мест"),
+                                PhotoFileName = DatabaseHelper.SafeGetString(reader, "Имя файла фото")
                             };
 
                             allTours.Add(tour);
@@ -166,7 +165,7 @@ namespace GlobusWPF
                     if (tour.FreeSeats > 0)
                     {
                         MessageBox.Show($"Бронирование тура: {tour.TourName}\n" +
-                                      $"Стоимость: {tour.DiscountPrice ?? tour.BasePrice:N0} руб.",
+                                      $"Стоимость: {tour.BasePrice:N0} руб.",
                                       "Бронирование", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else

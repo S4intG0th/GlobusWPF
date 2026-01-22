@@ -279,24 +279,6 @@
                                          Converter={StaticResource BoolToStrikeConverter}}"
                                   Foreground="{Binding BasePriceColor}"/>
 
-                                                <!-- Цена со скидкой -->
-                                                <TextBlock Text="{Binding DiscountPrice, StringFormat=N0}" 
-                                  FontSize="18" FontWeight="Bold"
-                                  HorizontalAlignment="Center"
-                                  Foreground="#FFD32F2F"
-                                  Visibility="{Binding IsSpecialOffer, 
-                                         Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                                                <!-- Размер скидки -->
-                                                <Border Background="#FFD32F2F" CornerRadius="3" 
-                               Padding="3,1" Margin="0,5,0,0"
-                               HorizontalAlignment="Center"
-                               Visibility="{Binding IsSpecialOffer, 
-                                       Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                    <TextBlock Text="{Binding DiscountPercent, StringFormat=-#%}" 
-                                      FontSize="10" FontWeight="Bold" 
-                                      Foreground="White"/>
-                                                </Border>
                                             </StackPanel>
                                         </Border>
                                     </Grid>

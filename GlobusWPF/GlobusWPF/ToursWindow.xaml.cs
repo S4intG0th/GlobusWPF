@@ -3,6 +3,7 @@ using GlobusWPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,12 @@ namespace GlobusWPF
         {
             InitializeComponent();
             LoadTours();
+            this.Loaded += ToursWindow_Loaded;
+        }
+        private void ToursWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Теперь все элементы XAML созданы
+            ApplyFilters();
         }
 
         private void LoadTours()
@@ -31,19 +38,19 @@ namespace GlobusWPF
                     conn.Open();
 
                     string query = @"
-            SELECT 
-                [Код тура],
-                [Наименование тура],
-                Страна,
-                [Продолжительность (дней)],
-                [Дата начала],
-                [Стоимость (руб.)],
-                [Тип автобуса],
-                Вместимость,
-                [Свободных мест],
-                [Имя файла фото]
-            FROM Tours
-            ORDER BY [Дата начала]";
+                SELECT 
+                    [Код тура],
+                    [Наименование тура],
+                    Страна,
+                    [Продолжительность (дней)],
+                    [Дата начала],
+                    [Стоимость (руб.)],
+                    [Тип автобуса],
+                    Вместимость,
+                    [Свободных мест],
+                    [Имя файла фото]
+                FROM Tours
+                ORDER BY [Код тура] DESC"; // Сортируем по ID, чтобы новые были сверху
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -52,17 +59,16 @@ namespace GlobusWPF
                         {
                             var tour = new Tour
                             {
-                                TourId = Convert.ToInt32(reader["Код тура"]),
-                                TourName = reader["Наименование тура"]?.ToString() ?? "",
-                                CountryName = reader["Страна"]?.ToString() ?? "",
-                                DurationDays = Convert.ToInt32(reader["Продолжительность (дней)"]),
-                                StartDate = Convert.ToDateTime(reader["Дата начала"]),
-                                BasePrice = Convert.ToDecimal(reader["Стоимость (руб.)"]),
-                                BusTypeName = reader["Тип автобуса"]?.ToString() ?? "",
-                                Capacity = Convert.ToInt32(reader["Вместимость"]),
-                                FreeSeats = Convert.ToInt32(reader["Свободных мест"]),
-                                PhotoFileName = reader["Имя файла фото"]?.ToString(),
-                                DiscountPrice = null
+                                TourId = reader["Код тура"] != DBNull.Value ? Convert.ToInt32(reader["Код тура"]) : 0,
+                                TourName = reader["Наименование тура"] != DBNull.Value ? reader["Наименование тура"].ToString() : "",
+                                CountryName = reader["Страна"] != DBNull.Value ? reader["Страна"].ToString() : "",
+                                DurationDays = reader["Продолжительность (дней)"] != DBNull.Value ? Convert.ToInt32(reader["Продолжительность (дней)"]) : 0,
+                                StartDate = reader["Дата начала"] != DBNull.Value ? Convert.ToDateTime(reader["Дата начала"]) : DateTime.MinValue,
+                                BasePrice = reader["Стоимость (руб.)"] != DBNull.Value ? Convert.ToInt32(reader["Стоимость (руб.)"]) : 0,
+                                BusTypeName = reader["Тип автобуса"] != DBNull.Value ? reader["Тип автобуса"].ToString() : "",
+                                Capacity = reader["Вместимость"] != DBNull.Value ? Convert.ToInt32(reader["Вместимость"]) : 0,
+                                FreeSeats = reader["Свободных мест"] != DBNull.Value ? Convert.ToInt32(reader["Свободных мест"]) : 0,
+                                PhotoFileName = reader["Имя файла фото"] != DBNull.Value ? reader["Имя файла фото"].ToString() : ""
                             };
 
                             allTours.Add(tour);
@@ -71,6 +77,13 @@ namespace GlobusWPF
                 }
 
                 ApplyFilters();
+
+                // Выводим отладочную информацию
+                Debug.WriteLine($"Загружено туров: {allTours.Count}");
+                foreach (var tour in allTours.Take(5))
+                {
+                    Debug.WriteLine($"Тур ID: {tour.TourId}, Название: {tour.TourName}");
+                }
             }
             catch (Exception ex)
             {
@@ -97,16 +110,16 @@ namespace GlobusWPF
                     bool matchesActive = chkActiveTours?.IsChecked != true ||
                                         t.StartDate >= DateTime.Now.Date;
 
-                    bool matchesDiscount = chkWithDiscount?.IsChecked != true ||
-                                          t.HasDiscount;
-
                     bool matchesFewSeats = chkFewSeats?.IsChecked != true ||
                                           t.IsFewSeats;
 
-                    return matchesSearch && matchesActive && matchesDiscount && matchesFewSeats;
+                    return matchesSearch && matchesActive && matchesFewSeats;
                 }).ToList();
 
-                lvTours.ItemsSource = filteredTours;
+                if (lvTours != null)
+                {
+                    lvTours.ItemsSource = filteredTours;
+                }
             }
             catch (Exception ex)
             {
@@ -132,7 +145,7 @@ namespace GlobusWPF
             var editWindow = new TourEditWindow();
             if (editWindow.ShowDialog() == true)
             {
-                LoadTours();
+                LoadTours(); // Перезагружает все туры с правильными ID из БД
             }
         }
 
@@ -168,7 +181,7 @@ namespace GlobusWPF
                         {
                             conn.Open();
 
-                            string checkQuery = "SELECT COUNT(*) FROM Aplications WHERE [Код тура] = @TourId";
+                            string checkQuery = "SELECT COUNT(*) FROM Aplic WHERE [Код тура] = @TourId";
                             using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
                             {
                                 checkCmd.Parameters.AddWithValue("@TourId", selectedTour.TourId);

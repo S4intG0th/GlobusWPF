@@ -3,8 +3,7 @@ using GlobusWPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,360 +13,209 @@ namespace GlobusWPF
     public partial class AplicationEditWindow : Window
     {
         private Aplication currentAplication;
-        private bool isNew;
+        private List<Tour> availableTours;
+        private bool isEditMode;
+        private int selectedTourPrice = 0;
 
         public AplicationEditWindow(Aplication aplication = null)
         {
             InitializeComponent();
-            LoadClients();
-            LoadTours();
 
             if (aplication == null)
             {
-                // Создание новой заявки
+                // Новая заявка
                 currentAplication = new Aplication
                 {
+                    AplicationId = 0,
+                    TourId = 0,
+                    ClientId = 1,
                     AplicationDate = DateTime.Now,
                     Status = "Новые",
-                    PeopleCount = 1
+                    PeopleCount = 1,
+                    TotalPrice = 0,
+                    Comment = ""
                 };
-                isNew = true;
-                Title = "Новая заявка";
+                isEditMode = false;
+                lblTitle.Text = "Новая заявка";
             }
             else
             {
-                // Редактирование существующей
+                // Редактирование существующей заявки
                 currentAplication = aplication;
-                isNew = false;
-                Title = "Редактирование заявки";
+                isEditMode = true;
+                lblTitle.Text = $"Редактирование заявки №{aplication.AplicationId}";
+                txtAplicationId.Text = aplication.AplicationId.ToString();
             }
 
+            LoadTours();
             LoadAplicationData();
-        }
-
-        private void CheckUsersTableStructure(SqlConnection conn)
-        {
-            try
-            {
-                string query = @"
-            SELECT COLUMN_NAME, DATA_TYPE
-            FROM INFORMATION_SCHEMA.COLUMNS
-            WHERE TABLE_NAME = 'Users'
-            ORDER BY ORDINAL_POSITION";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string columnName = reader["COLUMN_NAME"].ToString();
-                        string dataType = reader["DATA_TYPE"].ToString();
-                        Debug.WriteLine($"Users table column: {columnName} ({dataType})");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error checking Users table: {ex.Message}");
-            }
-        }
-
-        private void LoadClients()
-        {
-            try
-            {
-                cbClient.Items.Clear();
-
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
-                {
-                    conn.Open();
-
-                    // Проверим структуру таблицы Users
-                    string checkQuery = @"
-                SELECT COLUMN_NAME
-                FROM INFORMATION_SCHEMA.COLUMNS
-                WHERE TABLE_NAME = 'Users'";
-
-                    List<string> userColumns = new List<string>();
-                    using (SqlCommand cmd = new SqlCommand(checkQuery, conn))
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            userColumns.Add(reader["COLUMN_NAME"].ToString());
-                        }
-                    }
-
-                    // Строим запрос в зависимости от наличия столбцов
-                    string query;
-                    if (userColumns.Contains("Фамилия") && userColumns.Contains("Имя"))
-                    {
-                        string middleNamePart = userColumns.Contains("Отчество") ?
-                            " + ' ' + ISNULL([Отчество], '')" : "";
-
-                        query = $@"
-                SELECT 
-                    [Код пользователя] as UserId,
-                    [Фамилия] + ' ' + [Имя]{middleNamePart} as FullName
-                FROM Users
-                WHERE [Роль] LIKE '%клиент%' OR [Роль] IS NULL
-                ORDER BY [Фамилия], [Имя]";
-                    }
-                    else if (userColumns.Contains("LastName") && userColumns.Contains("FirstName"))
-                    {
-                        query = @"
-                SELECT 
-                    [Код пользователя] as UserId,
-                    [LastName] + ' ' + [FirstName] as FullName
-                FROM Users
-                WHERE [Role] LIKE '%client%' OR [Role] IS NULL
-                ORDER BY [LastName], [FirstName]";
-                    }
-                    else if (userColumns.Contains("Логин"))
-                    {
-                        query = @"
-                SELECT 
-                    [Код пользователя] as UserId,
-                    [Логин] as FullName
-                FROM Users
-                ORDER BY [Логин]";
-                    }
-                    else
-                    {
-                        // Если не нашли подходящих столбцов
-                        query = @"
-                SELECT 
-                    [Код пользователя] as UserId,
-                    'Пользователь ' + CAST([Код пользователя] as nvarchar) as FullName
-                FROM Users
-                ORDER BY [Код пользователя]";
-                    }
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cbClient.Items.Add(new
-                            {
-                                ClientId = Convert.ToInt32(reader["UserId"]),
-                                FullName = reader["FullName"].ToString()
-                            });
-                        }
-                    }
-
-                    if (cbClient.Items.Count == 0)
-                    {
-                        CreateTestClients();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки клиентов: {ex.Message}", "Предупреждение",
-                              MessageBoxButton.OK, MessageBoxImage.Warning);
-                CreateTestClients();
-            }
-        }
-
-        private void CreateTestClients()
-        {
-            // Создаем тестовых клиентов
-            for (int i = 1; i <= 5; i++)
-            {
-                cbClient.Items.Add(new
-                {
-                    ClientId = i,
-                    FullName = $"Тестовый клиент {i}"
-                });
-            }
-            cbClient.SelectedIndex = 0;
         }
 
         private void LoadTours()
         {
             try
             {
-                cbTour.Items.Clear();
+                availableTours = new List<Tour>();
 
                 using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
                 {
                     conn.Open();
 
-                    // Используем правильные названия столбцов
+                    // Загружаем все туры из таблицы Tours
                     string query = @"
-            SELECT 
-                [Код тура] as TourId,
-                [Наименование тура] as TourName,
-                [Стоимость (руб.)] as Price
-            FROM Tours
-            WHERE [Дата начала] > GETDATE() -- только будущие туры
-            ORDER BY [Наименование тура]";
+                        SELECT 
+                            [Код тура],
+                            [Наименование тура],
+                            [Стоимость (руб.)],
+                            [Свободных мест]
+                        FROM Tours 
+                        ORDER BY [Наименование тура]";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        bool hasData = false;
                         while (reader.Read())
                         {
-                            hasData = true;
-                            cbTour.Items.Add(new
+                            var tour = new Tour
                             {
-                                TourId = Convert.ToInt32(reader["TourId"]),
-                                TourName = reader["TourName"].ToString(),
-                                Price = Convert.ToDecimal(reader["Price"])
-                            });
-                        }
-
-                        if (!hasData)
-                        {
-                            // Если нет активных туров, покажем все
-                            LoadAllTours(conn);
+                                TourId = reader["Код тура"] != DBNull.Value ?
+                                        Convert.ToInt32(reader["Код тура"]) : 0,
+                                TourName = reader["Наименование тура"] != DBNull.Value ?
+                                         reader["Наименование тура"].ToString() : "",
+                                BasePrice = reader["Стоимость (руб.)"] != DBNull.Value ?
+                                          Convert.ToInt32(reader["Стоимость (руб.)"]) : 0,
+                                FreeSeats = reader["Свободных мест"] != DBNull.Value ?
+                                          Convert.ToInt32(reader["Свободных мест"]) : 0
+                            };
+                            availableTours.Add(tour);
                         }
                     }
+                }
+
+                cbTour.ItemsSource = availableTours;
+
+                if (availableTours.Count == 0)
+                {
+                    MessageBox.Show("В базе данных нет туров!", "Внимание",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки туров: {ex.Message}", "Предупреждение",
-                              MessageBoxButton.OK, MessageBoxImage.Warning);
-                CreateTestTours();
+                MessageBox.Show($"Ошибка загрузки туров: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void LoadAllTours(SqlConnection conn)
-        {
-            try
-            {
-                string query = @"
-        SELECT 
-            [Код тура] as TourId,
-            [Наименование тура] as TourName,
-            [Стоимость (руб.)] as Price
-        FROM Tours
-        ORDER BY [Наименование тура]";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        cbTour.Items.Add(new
-                        {
-                            TourId = Convert.ToInt32(reader["TourId"]),
-                            TourName = reader["TourName"].ToString(),
-                            Price = Convert.ToDecimal(reader["Price"])
-                        });
-                    }
-                }
-            }
-            catch
-            {
-                CreateTestTours();
-            }
-        }
-
-        private string FindColumn(List<string> availableColumns, string[] possibleNames)
-        {
-            foreach (var name in possibleNames)
-            {
-                if (availableColumns.Contains(name))
-                    return name;
-            }
-            return null;
-        }
-
-        private void CreateTestTours()
-        {
-            // Создаем тестовые туры
-            var testTours = new[]
-            {
-        new { TourId = 1, TourName = "Тур в Москву", Price = 15000m },
-        new { TourId = 2, TourName = "Тур в Сочи", Price = 20000m },
-        new { TourId = 3, TourName = "Тур в Крым", Price = 25000m }
-    };
-
-            foreach (var tour in testTours)
-            {
-                cbTour.Items.Add(tour);
-            }
-            cbTour.SelectedIndex = 0;
         }
 
         private void LoadAplicationData()
         {
-            // Загрузка клиента
-            foreach (var item in cbClient.Items)
+            try
             {
-                dynamic client = item;
-                if (client.ClientId == currentAplication.ClientId)
+                if (isEditMode)
                 {
-                    cbClient.SelectedItem = item;
-                    break;
+                    // Заполняем данные из существующей заявки
+                    txtClientId.Text = currentAplication.ClientId.ToString();
+                    dpAplicationDate.SelectedDate = currentAplication.AplicationDate;
+                    txtPeopleCount.Text = currentAplication.PeopleCount.ToString();
+                    txtComment.Text = currentAplication.Comment ?? "";
+                    txtTotalPrice.Text = currentAplication.TotalPrice.ToString("N0");
+
+                    // Устанавливаем выбранный тур
+                    foreach (Tour tour in cbTour.Items)
+                    {
+                        if (tour.TourId == currentAplication.TourId)
+                        {
+                            cbTour.SelectedItem = tour;
+                            selectedTourPrice = tour.BasePrice;
+                            break;
+                        }
+                    }
+
+                    // Устанавливаем статус
+                    foreach (ComboBoxItem item in cbStatus.Items)
+                    {
+                        if (item.Content.ToString() == currentAplication.Status)
+                        {
+                            cbStatus.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    // Значения по умолчанию для новой заявки
+                    txtClientId.Text = "1";
+                    dpAplicationDate.SelectedDate = DateTime.Now;
+                    txtPeopleCount.Text = "1";
+                    cbStatus.SelectedIndex = 0;
                 }
             }
-
-            // Загрузка тура
-            foreach (var item in cbTour.Items)
+            catch (Exception ex)
             {
-                dynamic tour = item;
-                if (tour.TourId == currentAplication.TourId)
-                {
-                    cbTour.SelectedItem = item;
-                    break;
-                }
+                MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            txtPeopleCount.Text = currentAplication.PeopleCount.ToString();
-            UpdateTotalPrice();
-
-            // Установка статуса
-            foreach (ComboBoxItem item in cbStatus.Items)
-            {
-                if (item.Content.ToString() == currentAplication.Status)
-                {
-                    cbStatus.SelectedItem = item;
-                    break;
-                }
-            }
-
-            dpAplicationDate.SelectedDate = currentAplication.AplicationDate;
-            txtComment.Text = currentAplication.Comment;
         }
 
         private void cbTour_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateTotalPrice();
+            if (cbTour.SelectedItem is Tour selectedTour)
+            {
+                selectedTourPrice = selectedTour.BasePrice;
+                currentAplication.TourId = selectedTour.TourId;
+                currentAplication.TourName = selectedTour.TourName;
+
+                // Пересчитываем стоимость
+                UpdateTotalPrice();
+            }
+        }
+
+        private void txtClientId_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Разрешаем только цифры
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void txtClientId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtClientId.Text) &&
+                int.TryParse(txtClientId.Text, out int clientId))
+            {
+                currentAplication.ClientId = clientId;
+            }
+        }
+
+        private void txtPeopleCount_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Разрешаем только цифры
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void txtPeopleCount_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateTotalPrice();
+            if (!string.IsNullOrEmpty(txtPeopleCount.Text))
+            {
+                if (int.TryParse(txtPeopleCount.Text, out int peopleCount))
+                {
+                    currentAplication.PeopleCount = peopleCount;
+                    UpdateTotalPrice();
+                }
+            }
         }
 
         private void UpdateTotalPrice()
         {
-            if (cbTour.SelectedItem != null && int.TryParse(txtPeopleCount.Text, out int peopleCount))
+            if (selectedTourPrice > 0 && currentAplication.PeopleCount > 0)
             {
-                dynamic selectedTour = cbTour.SelectedItem;
-                decimal tourPrice = selectedTour.Price;
-
-                // Обновляем отображение
-                txtTourPrice.Text = $"{tourPrice:N0} руб.";
-                txtTotalPrice.Text = $"{(tourPrice * peopleCount):N0} руб.";
+                currentAplication.TotalPrice = selectedTourPrice * currentAplication.PeopleCount;
+                txtTotalPrice.Text = currentAplication.TotalPrice.ToString("N0");
             }
-        }
-
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            // Разрешаем только цифры
-            foreach (char c in e.Text)
+            else
             {
-                if (!char.IsDigit(c))
-                {
-                    e.Handled = true;
-                    break;
-                }
+                currentAplication.TotalPrice = 0;
+                txtTotalPrice.Text = "0";
             }
         }
 
@@ -375,104 +223,157 @@ namespace GlobusWPF
         {
             try
             {
-                // Валидация
-                if (cbClient.SelectedItem == null)
-                {
-                    MessageBox.Show("Выберите клиента", "Ошибка",
-                                  MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
+                // 1. ВАЛИДАЦИЯ ПОЛЕЙ
 
+                // Проверяем тур
                 if (cbTour.SelectedItem == null)
                 {
-                    MessageBox.Show("Выберите тур", "Ошибка",
-                                  MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Выберите тур!", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    cbTour.Focus();
                     return;
                 }
 
-                if (!int.TryParse(txtPeopleCount.Text, out int peopleCount) || peopleCount < 1)
+                // Проверяем код клиента
+                if (!int.TryParse(txtClientId.Text, out int clientId) || clientId <= 0)
                 {
-                    MessageBox.Show("Введите корректное количество человек (минимум 1)", "Ошибка",
-                                  MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Введите корректный код клиента (положительное число)!",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    txtClientId.Focus();
                     return;
                 }
 
-                // Получаем данные
-                dynamic selectedClient = cbClient.SelectedItem;
-                dynamic selectedTour = cbTour.SelectedItem;
+                // Проверяем количество человек
+                if (!int.TryParse(txtPeopleCount.Text, out int peopleCount) || peopleCount <= 0)
+                {
+                    MessageBox.Show("Введите корректное количество человек (минимум 1)!",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    txtPeopleCount.Focus();
+                    return;
+                }
 
-                // Рассчитываем стоимость
-                decimal totalPrice = selectedTour.Price * peopleCount;
+                // Проверяем статус
+                if (cbStatus.SelectedItem is not ComboBoxItem selectedStatusItem)
+                {
+                    MessageBox.Show("Выберите статус заявки!", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-                // Сохраняем в базу данных
+                // 2. ОБНОВЛЯЕМ ДАННЫЕ В ОБЪЕКТЕ
+                currentAplication.ClientId = clientId;
+                currentAplication.AplicationDate = dpAplicationDate.SelectedDate ?? DateTime.Now;
+                currentAplication.PeopleCount = peopleCount;
+                currentAplication.Status = selectedStatusItem.Content.ToString();
+                currentAplication.Comment = txtComment.Text.Trim();
+
+                // Получаем выбранный тур
+                Tour selectedTour = (Tour)cbTour.SelectedItem;
+                currentAplication.TourId = selectedTour.TourId;
+                currentAplication.TourName = selectedTour.TourName;
+
+                // Пересчитываем стоимость
+                currentAplication.TotalPrice = selectedTour.BasePrice * peopleCount;
+
+                // 3. СОХРАНЕНИЕ В БАЗЕ ДАННЫХ
                 using (SqlConnection conn = new SqlConnection(DatabaseHelper.ConnectionString))
                 {
                     conn.Open();
 
-                    if (isNew)
+                    if (isEditMode)
                     {
-                        // Вставка новой записи
-                        string query = @"
-                INSERT INTO Aplications 
-                ([Код тура], [Код клиента], [Дата заявки], [Статус заявки], 
-                 [Количество человек], [Общая стоимость(руб.)], Комментарий)
-                VALUES (@TourId, @ClientId, @AplicationDate, @Status, 
-                        @PeopleCount, @TotalPrice, @Comment);
-                SELECT SCOPE_IDENTITY();";
+                        // ОБНОВЛЕНИЕ существующей заявки
+                        string updateQuery = @"
+                            UPDATE Aplications SET
+                            [Код тура] = @TourId,
+                            [Код клиента] = @ClientId,
+                            [Дата заявки] = @AplicationDate,
+                            [Статус заявки] = @Status,
+                            [Количество человек] = @PeopleCount,
+                            [Общая стоимость (руб.)] = @TotalPrice,
+                            Комментарий = @Comment
+                            WHERE [Код заявки] = @AplicationId";
 
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
                         {
-                            cmd.Parameters.AddWithValue("@TourId", selectedTour.TourId);
-                            cmd.Parameters.AddWithValue("@ClientId", selectedClient.ClientId);
-                            cmd.Parameters.AddWithValue("@AplicationDate", dpAplicationDate.SelectedDate ?? DateTime.Now);
-                            cmd.Parameters.AddWithValue("@Status", (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Новые");
-                            cmd.Parameters.AddWithValue("@PeopleCount", peopleCount);
-                            cmd.Parameters.AddWithValue("@TotalPrice", totalPrice);
-                            cmd.Parameters.AddWithValue("@Comment", txtComment.Text ?? "");
+                            cmd.Parameters.AddWithValue("@TourId", currentAplication.TourId);
+                            cmd.Parameters.AddWithValue("@ClientId", currentAplication.ClientId);
+                            cmd.Parameters.AddWithValue("@AplicationDate", currentAplication.AplicationDate);
+                            cmd.Parameters.AddWithValue("@Status", currentAplication.Status);
+                            cmd.Parameters.AddWithValue("@PeopleCount", currentAplication.PeopleCount);
+                            cmd.Parameters.AddWithValue("@TotalPrice", currentAplication.TotalPrice);
+                            cmd.Parameters.AddWithValue("@Comment",
+                                string.IsNullOrEmpty(currentAplication.Comment) ?
+                                (object)DBNull.Value : currentAplication.Comment);
+                            cmd.Parameters.AddWithValue("@AplicationId", currentAplication.AplicationId);
 
-                            currentAplication.AplicationId = Convert.ToInt32(cmd.ExecuteScalar());
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Заявка успешно обновлена!", "Успех",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                                DialogResult = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось обновить заявку!", "Ошибка",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                     }
                     else
                     {
-                        // Обновление существующей записи
-                        string query = @"
-                UPDATE Aplications SET
-                [Код тура] = @TourId,
-                [Код клиента] = @ClientId,
-                [Дата заявки] = @AplicationDate,
-                [Статус заявки] = @Status,
-                [Количество человек] = @PeopleCount,
-                [Общая стоимость(руб.)] = @TotalPrice,
-                Комментарий = @Comment
-                WHERE [Код заявки] = @AplicationId";
+                        // СОЗДАНИЕ новой заявки
+                        // Получаем следующий ID для новой заявки
+                        int nextId = GetNextAplicationId(conn);
 
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        string insertQuery = @"
+                            INSERT INTO Aplications 
+                            ([Код заявки], [Код тура], [Код клиента], [Дата заявки], 
+                             [Статус заявки], [Количество человек], [Общая стоимость (руб.)], Комментарий)
+                            VALUES (@AplicationId, @TourId, @ClientId, @AplicationDate, 
+                                    @Status, @PeopleCount, @TotalPrice, @Comment)";
+
+                        using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
                         {
-                            cmd.Parameters.AddWithValue("@AplicationId", currentAplication.AplicationId);
-                            cmd.Parameters.AddWithValue("@TourId", selectedTour.TourId);
-                            cmd.Parameters.AddWithValue("@ClientId", selectedClient.ClientId);
-                            cmd.Parameters.AddWithValue("@AplicationDate", dpAplicationDate.SelectedDate ?? currentAplication.AplicationDate);
-                            cmd.Parameters.AddWithValue("@Status", (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString() ?? currentAplication.Status);
-                            cmd.Parameters.AddWithValue("@PeopleCount", peopleCount);
-                            cmd.Parameters.AddWithValue("@TotalPrice", totalPrice);
-                            cmd.Parameters.AddWithValue("@Comment", txtComment.Text ?? currentAplication.Comment);
+                            cmd.Parameters.AddWithValue("@AplicationId", nextId);
+                            cmd.Parameters.AddWithValue("@TourId", currentAplication.TourId);
+                            cmd.Parameters.AddWithValue("@ClientId", currentAplication.ClientId);
+                            cmd.Parameters.AddWithValue("@AplicationDate", currentAplication.AplicationDate);
+                            cmd.Parameters.AddWithValue("@Status", currentAplication.Status);
+                            cmd.Parameters.AddWithValue("@PeopleCount", currentAplication.PeopleCount);
+                            cmd.Parameters.AddWithValue("@TotalPrice", currentAplication.TotalPrice);
+                            cmd.Parameters.AddWithValue("@Comment",
+                                string.IsNullOrEmpty(currentAplication.Comment) ?
+                                (object)DBNull.Value : currentAplication.Comment);
 
                             cmd.ExecuteNonQuery();
+
+                            // Сохраняем ID новой заявки
+                            currentAplication.AplicationId = nextId;
+
+                            MessageBox.Show($"Заявка успешно создана! Номер: {nextId}", "Успех",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            DialogResult = true;
                         }
                     }
                 }
-
-                MessageBox.Show("Заявка успешно сохранена!", "Успех",
-                              MessageBoxButton.OK, MessageBoxImage.Information);
-
-                DialogResult = true;
-                Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private int GetNextAplicationId(SqlConnection conn)
+        {
+            // Получаем максимальный ID и прибавляем 1
+            string query = "SELECT ISNULL(MAX([Код заявки]), 0) + 1 FROM Aplications";
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
 

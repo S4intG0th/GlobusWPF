@@ -65,6 +65,8 @@
     <Compile Include="AplicationEditWindow.xaml.cs">
       <DependentUpon>AplicationEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AplicationEditViewModel.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="TourEditWindow.xaml.cs">
       <DependentUpon>TourEditWindow.xaml</DependentUpon>
     </Compile>

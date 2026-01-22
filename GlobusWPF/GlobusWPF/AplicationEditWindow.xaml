@@ -1,10 +1,11 @@
 ﻿<Window x:Class="GlobusWPF.AplicationEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Редактирование заявки" Height="400" Width="600"
-        WindowStartupLocation="CenterOwner">
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Редактирование заявки" Height="450" Width="500"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
 
-    <Grid Margin="10">
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,75 +23,89 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Клиент -->
-        <TextBlock Text="Клиент:" Grid.Row="0" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <ComboBox x:Name="cbClient" Grid.Row="0" Grid.Column="1" 
-                  DisplayMemberPath="FullName" 
-                  SelectedValuePath="ClientId"
-                  Margin="0,0,0,10"/>
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
+                   x:Name="lblTitle" Text="Новая заявка" 
+                   FontSize="16" FontWeight="Bold" 
+                   Margin="0,0,0,15" HorizontalAlignment="Center"/>
+
+        <!-- Номер заявки -->
+        <TextBlock Grid.Row="1" Grid.Column="0" 
+                   Text="№ заявки:" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" 
+                   x:Name="txtAplicationId" Text="Новая" 
+                   FontWeight="Bold" VerticalAlignment="Center"/>
 
         <!-- Тур -->
-        <TextBlock Text="Тур:" Grid.Row="1" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <ComboBox x:Name="cbTour" Grid.Row="1" Grid.Column="1" 
-                  DisplayMemberPath="TourName" 
-                  SelectedValuePath="TourId"
-                  SelectionChanged="cbTour_SelectionChanged"
-                  Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" 
+                   Text="Тур:*" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" 
+                  x:Name="cbTour" DisplayMemberPath="TourName"
+                  Margin="0,0,0,10" Height="25"
+                  SelectionChanged="cbTour_SelectionChanged"/>
+
+        <!-- Код клиента -->
+        <TextBlock Grid.Row="3" Grid.Column="0" 
+                   Text="Код клиента:*" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" 
+                x:Name="txtClientId" Text="1"
+                Margin="0,0,0,10" Height="25"
+                PreviewTextInput="txtClientId_PreviewTextInput"/>
+
+        <!-- Дата заявки -->
+        <TextBlock Grid.Row="4" Grid.Column="0" 
+                   Text="Дата заявки:" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="4" Grid.Column="1" 
+                   x:Name="dpAplicationDate" 
+                   SelectedDate="{x:Static sys:DateTime.Now}"
+                   Margin="0,0,0,10" Height="25"/>
 
         <!-- Количество человек -->
-        <TextBlock Text="Количество человек:" Grid.Row="2" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtPeopleCount" Grid.Row="2" Grid.Column="1" 
-                 Text="1" PreviewTextInput="NumberValidationTextBox"
-                 Margin="0,0,0,10"/>
-
-        <!-- Стоимость тура (автоматически) -->
-        <TextBlock Text="Стоимость за 1 чел.:" Grid.Row="3" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <TextBlock x:Name="txtTourPrice" Grid.Row="3" Grid.Column="1" 
-                   Margin="0,0,0,10" VerticalAlignment="Center"/>
-
-        <!-- Общая стоимость -->
-        <TextBlock Text="Общая стоимость:" Grid.Row="4" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <TextBlock x:Name="txtTotalPrice" Grid.Row="4" Grid.Column="1" 
-                   FontWeight="Bold" Foreground="Green"
-                   Margin="0,0,0,10" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" 
+                   Text="Кол-во человек:*" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" 
+                x:Name="txtPeopleCount" Text="1"
+                Margin="0,0,0,10" Height="25"
+                PreviewTextInput="txtPeopleCount_PreviewTextInput"/>
 
         <!-- Статус -->
-        <TextBlock Text="Статус:" Grid.Row="5" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <ComboBox x:Name="cbStatus" Grid.Row="5" Grid.Column="1" 
-                  Margin="0,0,0,10">
+        <TextBlock Grid.Row="6" Grid.Column="0" 
+                   Text="Статус:*" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="6" Grid.Column="1" 
+                 x:Name="cbStatus" SelectedIndex="0"
+                 Margin="0,0,0,10" Height="25">
             <ComboBoxItem Content="Новые"/>
             <ComboBoxItem Content="Подтвержденные"/>
             <ComboBoxItem Content="Отмененные"/>
             <ComboBoxItem Content="В обработке"/>
         </ComboBox>
 
-        <!-- Дата заявки -->
-        <TextBlock Text="Дата заявки:" Grid.Row="6" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Center"/>
-        <DatePicker x:Name="dpAplicationDate" Grid.Row="6" Grid.Column="1" 
-                    Margin="0,0,0,10"/>
+        <!-- Общая стоимость -->
+        <TextBlock Grid.Row="7" Grid.Column="0" 
+                   Text="Общая стоимость:" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="7" Grid.Column="1" 
+                  x:Name="txtTotalPrice" Text="0" 
+                  FontSize="14" FontWeight="Bold" 
+                  Foreground="Green" VerticalAlignment="Center"
+                  Margin="0,0,0,10"/>
 
         <!-- Комментарий -->
-        <TextBlock Text="Комментарий:" Grid.Row="7" Grid.Column="0" 
-                   Margin="0,0,10,10" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtComment" Grid.Row="7" Grid.Column="1" 
-                 AcceptsReturn="True" TextWrapping="Wrap" 
-                 Height="80" VerticalScrollBarVisibility="Auto"
-                 Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="8" Grid.Column="0" 
+                   Text="Комментарий:" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="8" Grid.Column="1" 
+                x:Name="txtComment" Height="60"
+                VerticalScrollBarVisibility="Auto" 
+                TextWrapping="Wrap" AcceptsReturn="True"
+                Margin="0,0,0,10"/>
 
         <!-- Кнопки -->
-        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" 
+        <StackPanel Grid.Row="9" Grid.ColumnSpan="2" 
                     Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="btnSave" Content="Сохранить" 
-                    Width="100" Margin="0,0,10,0" Click="btnSave_Click"/>
+                   Width="100" Margin="0,0,10,0" 
+                   Click="btnSave_Click" IsDefault="True"/>
             <Button x:Name="btnCancel" Content="Отмена" 
-                    Width="100" Click="btnCancel_Click"/>
+                   Width="100" Click="btnCancel_Click" IsCancel="True"/>
         </StackPanel>
     </Grid>
 </Window>

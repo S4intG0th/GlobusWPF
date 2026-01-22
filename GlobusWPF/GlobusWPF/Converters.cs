@@ -9,10 +9,9 @@ namespace GlobusWPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string status)
+            if (value is bool boolValue)
             {
-                // Показываем кнопку "Подтвердить" только для заявок со статусом "Новые"
-                return status == "Новые" ? Visibility.Visible : Visibility.Collapsed;
+                return boolValue ? Visibility.Visible : Visibility.Collapsed;
             }
             return Visibility.Collapsed;
         }

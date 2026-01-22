@@ -5,6 +5,6 @@ namespace GlobusWPF
 {
     public partial class App : Application
     {
-        public static User CurrentUser { get; set; } // Используем User вместо UserInfo
+        public static User CurrentUser { get; set; }
     }
 }

@@ -47,9 +47,10 @@
                     <GridViewColumn Header="№" 
                                   DisplayMemberBinding="{Binding AplicationId}" 
                                   Width="50"/>
+                    <!-- В GridView в ListView добавьте новую колонку -->
                     <GridViewColumn Header="Клиент" 
-                                  DisplayMemberBinding="{Binding ClientName}" 
-                                  Width="150"/>
+                DisplayMemberBinding="{Binding ClientName}" 
+                Width="150"/>
                     <GridViewColumn Header="Тур" 
                                   DisplayMemberBinding="{Binding TourName}" 
                                   Width="200"/>
